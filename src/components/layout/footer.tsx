@@ -6,7 +6,7 @@ export function Footer() {
             <div className="container mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 px-4 md:px-6">
                 <div className="col-span-2 md:col-span-1">
                     <Link to="/" className="flex items-center gap-2 mb-4">
-                        <span className="text-xl font-bold tracking-tight text-white">YourService</span>
+                        <img src="/logoYS.png" alt="YourService Logo" className="h-10 w-auto object-contain grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
                     </Link>
                     <p className="text-sm text-muted-foreground">
                         Encuentra al profesional experto para tu hogar en Santiago. Calidad y confianza garantizada.
