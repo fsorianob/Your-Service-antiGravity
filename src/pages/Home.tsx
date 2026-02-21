@@ -21,7 +21,7 @@ export default function Home() {
                 <div className="absolute inset-0 z-0">
                     {/* Gradient Background placeholder for Hero Image */}
                     <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-transparent z-10" />
-                    <div className="absolute inset-0 bg-[url('/hero_bg.png')] bg-cover bg-center opacity-40" />
+                    <div className="absolute inset-0 bg-[url('/servicios_variados.png')] bg-cover bg-center opacity-40" />
                 </div>
 
                 <div className="container relative z-20 mx-auto px-4 md:px-6">
@@ -57,16 +57,7 @@ export default function Home() {
                             </Button>
                         </form>
 
-                        <div className="flex items-center gap-4 text-sm text-muted-foreground pt-4">
-                            <div className="flex -space-x-2">
-                                {[1, 2, 3].map((i) => (
-                                    <div key={i} className="w-8 h-8 rounded-full bg-slate-700 border-2 border-background flex items-center justify-center text-[10px] text-white font-bold">
-                                        User
-                                    </div>
-                                ))}
-                            </div>
-                            <p>+10.000 clientes satisfechos en Santiago</p>
-                        </div>
+
                     </div>
                 </div>
             </section>
