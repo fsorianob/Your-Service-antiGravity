@@ -56,6 +56,26 @@ const PAGES_DATA: Record<string, { title: string; content: React.ReactNode }> = 
                 <p className="mb-4">Descarga nuestro kit de prensa y logotipos aquí.</p>
             </>
         )
+    },
+    faq: {
+        title: "Preguntas Frecuentes (FAQ)",
+        content: (
+            <>
+                <h3 className="text-lg font-bold text-white mt-6 mb-2">¿Cómo agendo a un profesional?</h3>
+                <p className="mb-4">Simplemente busca el servicio que necesitas, selecciona un perfil verificado y elige tu horario disponible.</p>
+
+                <h3 className="text-lg font-bold text-white mt-6 mb-2">¿Es seguro?</h3>
+                <p className="mb-4">Sí. Todos nuestros profesionales pasan por un estricto proceso de verificación antes de ser aceptados en la plataforma.</p>
+            </>
+        )
+    },
+    guides: {
+        title: "Guías y Tutoriales",
+        content: (
+            <>
+                <p className="mb-4">Bienvenido a nuestro centro de aprendizaje. Muy pronto publicaremos artículos y videos sobre cómo realizar mantenimiento preventivo en tu hogar antes de llamar a un profesional.</p>
+            </>
+        )
     }
 }
 
