@@ -21,7 +21,7 @@ export default function Home() {
                 <div className="absolute inset-0 z-0">
                     {/* Gradient Background placeholder for Hero Image */}
                     <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-transparent z-10" />
-                    <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-30" />
+                    <div className="absolute inset-0 bg-[url('/hero_bg.png')] bg-cover bg-center opacity-40" />
                 </div>
 
                 <div className="container relative z-20 mx-auto px-4 md:px-6">
