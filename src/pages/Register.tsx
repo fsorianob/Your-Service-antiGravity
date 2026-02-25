@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Link, useNavigate } from "react-router-dom"
-import { CheckCircle, Loader2, Mail, ArrowLeft, ShieldAlert, User, Briefcase } from "lucide-react"
+import { CheckCircle, Loader2, Mail, ArrowLeft, User, Briefcase } from "lucide-react"
 import { useState } from "react"
 import { supabase } from "@/lib/supabase"
 
@@ -103,8 +103,8 @@ export default function RegisterPage() {
                                 <User className="text-gray-300 group-hover:text-primary transition-colors" size={24} />
                             </div>
                             <div className="text-left">
-                                <span className="block text-white font-bold text-lg group-hover:text-primary transition-colors">Soy Cliente</span>
-                                <span className="block text-sm text-muted-foreground group-hover:text-gray-300">Ingresar al perfil de mis Servicios.</span>
+                                <span className="block text-white font-bold text-lg group-hover:text-primary transition-colors">Quiero ser Cliente</span>
+                                <span className="block text-sm text-muted-foreground group-hover:text-gray-300">Crear perfil para contratar Servicios.</span>
                             </div>
                         </Button>
 
@@ -117,22 +117,8 @@ export default function RegisterPage() {
                                 <Briefcase className="text-gray-300 group-hover:text-primary transition-colors" size={24} />
                             </div>
                             <div className="text-left">
-                                <span className="block text-white font-bold text-lg group-hover:text-primary transition-colors">Soy Negocio</span>
-                                <span className="block text-sm text-muted-foreground group-hover:text-gray-300">Ingresar al perfil de mis Negocios.</span>
-                            </div>
-                        </Button>
-
-                        <Button
-                            variant="outline"
-                            className="w-full h-auto py-4 flex items-center justify-start gap-4 border-white/10 hover:border-red-500/50 hover:bg-red-500/5 group rounded-2xl"
-                            onClick={() => setSelectedRole('admin')}
-                        >
-                            <div className="bg-white/5 p-3 rounded-full group-hover:bg-red-500/20 transition-colors">
-                                <ShieldAlert className="text-gray-300 group-hover:text-red-400 transition-colors" size={24} />
-                            </div>
-                            <div className="text-left">
-                                <span className="block text-white font-bold text-lg group-hover:text-red-400 transition-colors">Soy Administrador</span>
-                                <span className="block text-sm text-muted-foreground group-hover:text-gray-300">Perfil de Administradores.</span>
+                                <span className="block text-white font-bold text-lg group-hover:text-primary transition-colors">Quiero ser Negocio</span>
+                                <span className="block text-sm text-muted-foreground group-hover:text-gray-300">Crear perfil para publicar mis Servicios.</span>
                             </div>
                         </Button>
                     </div>
