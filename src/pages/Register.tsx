@@ -5,7 +5,7 @@ import { CheckCircle, Loader2, Mail, ArrowLeft, User, Briefcase } from "lucide-r
 import { useState } from "react"
 import { supabase } from "@/lib/supabase"
 
-type Role = 'admin' | 'client' | 'pro' | null
+type Role = 'admin' | 'client' | 'professional' | null
 
 export default function RegisterPage() {
     const navigate = useNavigate()
@@ -44,7 +44,7 @@ export default function RegisterPage() {
             // Check if session was created immediately (email confirmation disabled)
             if (data.session) {
                 if (selectedRole === 'admin') navigate("/dashboard/admin")
-                else if (selectedRole === 'pro') navigate("/dashboard/pro")
+                else if (selectedRole === 'professional') navigate("/dashboard/pro")
                 else navigate("/dashboard/client")
             } else {
                 // Email confirmation required
@@ -111,7 +111,7 @@ export default function RegisterPage() {
                         <Button
                             variant="outline"
                             className="w-full h-auto py-4 flex items-center justify-start gap-4 border-white/10 hover:border-primary/50 hover:bg-primary/5 group rounded-2xl"
-                            onClick={() => setSelectedRole('pro')}
+                            onClick={() => setSelectedRole('professional')}
                         >
                             <div className="bg-white/5 p-3 rounded-full group-hover:bg-primary/20 transition-colors">
                                 <Briefcase className="text-gray-300 group-hover:text-primary transition-colors" size={24} />
