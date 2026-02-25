@@ -61,7 +61,7 @@ export default function LoginPage() {
                     <div className="space-y-4 animate-in fade-in zoom-in-95 duration-300">
                         <Button
                             variant="outline"
-                            className="w-full h-auto py-4 flex items-center justify-start gap-4 border-white/10 hover:border-primary/50 hover:bg-primary/5 group"
+                            className="w-full h-auto py-4 flex items-center justify-start gap-4 border-white/10 hover:border-primary/50 hover:bg-primary/5 group rounded-2xl"
                             onClick={() => setSelectedRole('client')}
                         >
                             <div className="bg-white/5 p-3 rounded-full group-hover:bg-primary/20 transition-colors">
@@ -69,13 +69,13 @@ export default function LoginPage() {
                             </div>
                             <div className="text-left">
                                 <span className="block text-white font-bold text-lg group-hover:text-primary transition-colors">Soy Cliente</span>
-                                <span className="block text-sm text-muted-foreground group-hover:text-gray-300">Quiero contratar servicios</span>
+                                <span className="block text-sm text-muted-foreground group-hover:text-gray-300">Ingresar al perfil de mis Servicios.</span>
                             </div>
                         </Button>
 
                         <Button
                             variant="outline"
-                            className="w-full h-auto py-4 flex items-center justify-start gap-4 border-white/10 hover:border-primary/50 hover:bg-primary/5 group"
+                            className="w-full h-auto py-4 flex items-center justify-start gap-4 border-white/10 hover:border-primary/50 hover:bg-primary/5 group rounded-2xl"
                             onClick={() => setSelectedRole('pro')}
                         >
                             <div className="bg-white/5 p-3 rounded-full group-hover:bg-primary/20 transition-colors">
@@ -83,13 +83,13 @@ export default function LoginPage() {
                             </div>
                             <div className="text-left">
                                 <span className="block text-white font-bold text-lg group-hover:text-primary transition-colors">Soy Negocio</span>
-                                <span className="block text-sm text-muted-foreground group-hover:text-gray-300">Ofrezco servicios profesionales</span>
+                                <span className="block text-sm text-muted-foreground group-hover:text-gray-300">Ingresar al perfil de mis Negocios.</span>
                             </div>
                         </Button>
 
                         <Button
                             variant="outline"
-                            className="w-full h-auto py-4 flex items-center justify-start gap-4 border-white/10 hover:border-red-500/50 hover:bg-red-500/5 group"
+                            className="w-full h-auto py-4 flex items-center justify-start gap-4 border-white/10 hover:border-red-500/50 hover:bg-red-500/5 group rounded-2xl"
                             onClick={() => setSelectedRole('admin')}
                         >
                             <div className="bg-white/5 p-3 rounded-full group-hover:bg-red-500/20 transition-colors">
@@ -97,7 +97,7 @@ export default function LoginPage() {
                             </div>
                             <div className="text-left">
                                 <span className="block text-white font-bold text-lg group-hover:text-red-400 transition-colors">Soy Administrador</span>
-                                <span className="block text-sm text-muted-foreground group-hover:text-gray-300">Gestión interna de plataforma</span>
+                                <span className="block text-sm text-muted-foreground group-hover:text-gray-300">Perfil de Administradores.</span>
                             </div>
                         </Button>
                     </div>
