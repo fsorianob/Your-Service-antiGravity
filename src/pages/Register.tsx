@@ -74,7 +74,7 @@ export default function RegisterPage() {
         <div className="flex-1 flex items-center justify-center p-4 animate-in fade-in duration-500">
             <div className="w-full max-w-md bg-card border border-white/10 rounded-xl p-8 shadow-2xl">
                 <div className="text-center mb-8 flex flex-col items-center">
-                    <img src="/logoYS.png" alt="YourService Logo" className="h-16 w-auto object-contain mb-6" />
+                    <img src="/logoYS_transparent.png" alt="YourService Logo" className="h-16 w-auto object-contain mb-6 drop-shadow-lg" />
                     <h1 className="text-2xl font-bold text-white">Crea tu cuenta</h1>
                     <p className="text-muted-foreground mt-2">Únete a YourService y encuentra a los mejores profesionales</p>
                 </div>

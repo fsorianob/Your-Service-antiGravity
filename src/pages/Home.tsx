@@ -3,9 +3,27 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { CardContent } from "@/components/ui/card"
 import { Link, useNavigate } from "react-router-dom"
+import { useState, useEffect } from "react"
 
 export default function Home() {
     const navigate = useNavigate();
+    const [bgIndex, setBgIndex] = useState(0);
+
+    const heroImages = [
+        '/hero_rubro_domestico.png',
+        '/hero_rubro_digital.png',
+        '/hero_rubro_personal.png',
+        '/hero_rubro_desarrollo.png',
+        '/hero_rubro_asesoria.png',
+        '/hero_rubro_ventas.png'
+    ];
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setBgIndex((prev) => (prev + 1) % heroImages.length);
+        }, 5000);
+        return () => clearInterval(interval);
+    }, []);
 
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -18,22 +36,36 @@ export default function Home() {
         <div className="flex-1">
             {/* Hero Section */}
             <section className="relative py-20 md:py-32 overflow-hidden">
-                <div className="absolute inset-0 z-0">
-                    {/* Gradient Background placeholder for Hero Image */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-transparent z-10" />
-                    <div className="absolute inset-0 bg-[url('/servicios_variados.png')] bg-cover bg-center opacity-40" />
+                <div className="absolute inset-0 z-0 bg-black">
+                    {/* Deep gradient overlays for maximum contrast and readability */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/80 to-background z-10" />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.9)_100%)] z-10 pointer-events-none" />
+
+                    {/* Fading Background Cascade */}
+                    {heroImages.map((src, index) => (
+                        <div
+                            key={src}
+                            className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out ${index === bgIndex ? "opacity-50 scale-105" : "opacity-0 scale-100"
+                                }`}
+                            style={{ backgroundImage: `url('${src}')`, transitionProperty: 'opacity, transform', transitionDuration: '1.5s, 10s' }}
+                        />
+                    ))}
                 </div>
 
                 <div className="container relative z-20 mx-auto px-4 md:px-6">
-                    <div className="max-w-2xl space-y-8">
-                        <h1 className="text-4xl md:text-6xl font-bold tracking-tighter text-white leading-[1.1]">
+                    <div className="flex flex-col items-center text-center space-y-8 max-w-4xl mx-auto">
+                        {/* Huge Central Logo */}
+                        <div className="w-full max-w-sm md:max-w-md lg:max-w-xl mb-4 animate-in fade-in zoom-in duration-700">
+                            <img src="/logoYS_transparent.png" alt="YourService Logo" className="w-full h-auto object-contain drop-shadow-2xl" />
+                        </div>
+                        <h1 className="text-4xl md:text-6xl font-bold tracking-tighter text-white leading-[1.1] drop-shadow-lg">
                             Encuentra al <span className="text-primary">profesional experto</span> para tu hogar en Santiago.
                         </h1>
-                        <p className="text-lg md:text-xl text-muted-foreground">
+                        <p className="text-lg md:text-xl text-muted-foreground drop-shadow-md">
                             Electricistas, gasfíteres, limpiadores y más. Verificados y listos para ayudarte hoy mismo.
                         </p>
 
-                        <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-4 w-full max-w-lg p-2 bg-card/50 backdrop-blur-sm border border-white/10 rounded-lg">
+                        <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-4 w-full max-w-lg p-2 bg-card/60 backdrop-blur-md border border-white/10 rounded-xl shadow-2xl">
                             <div className="relative flex-1">
                                 <Search className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
                                 <Input
@@ -52,10 +84,22 @@ export default function Home() {
                                     defaultValue="Santiago"
                                 />
                             </div>
-                            <Button type="submit" size="lg" variant="gold" className="h-12 w-full sm:w-auto px-8">
+                            <Button type="submit" size="lg" variant="gold" className="h-12 w-full sm:w-auto px-8 font-bold text-black border border-transparent hover:border-white/20">
                                 Buscar
                             </Button>
                         </form>
+
+                        {/* Inclusive Professional Call To Action */}
+                        <div className="mt-12 p-6 bg-primary/5 border border-primary/20 rounded-2xl max-w-2xl mx-auto backdrop-blur-sm shadow-xl">
+                            <h3 className="text-xl font-bold text-white mb-2">¿No ves tu rubro aquí? No importa.</h3>
+                            <p className="text-muted-foreground text-sm md:text-base mb-4 leading-relaxed">
+                                Desde jardinería hasta asesoría legal, robótica o clases de guitarra. Si ofreces un trabajo excepcional, <strong className="text-white">Your Service</strong> es el escenario diseñado para impulsar tu negocio.
+                            </p>
+                            <Button asChild variant="outline" className="border-primary/50 text-white hover:bg-primary/20">
+                                <Link to="/join-pro">Suma tu servicio hoy <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                            </Button>
+                        </div>
+
 
 
                     </div>
