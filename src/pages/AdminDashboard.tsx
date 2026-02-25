@@ -1,21 +1,27 @@
-import { Activity, Shield, Settings, Check, X, TrendingUp, DollarSign } from "lucide-react"
+import { Activity, Shield, Settings, Check, X, TrendingUp, DollarSign, LogOut } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+import { useAuth } from "@/contexts/AuthContext"
 
 export default function AdminDashboard() {
+    const { user, signOut } = useAuth()
+    const navigate = useNavigate()
+
+    const handleLogout = async () => {
+        await signOut()
+        navigate("/login")
+    }
+
+    const fullName = user?.user_metadata?.full_name || "Administrador"
+    const firstName = fullName.split(' ')[0]
+
     return (
         <div className="min-h-screen bg-[#0F0F0F] text-white flex flex-col md:flex-row">
 
             {/* Sidebar */}
             <aside className="w-full md:w-64 bg-[#141414] border-r border-white/10 p-6 flex flex-col">
                 <div className="mb-10">
-                    <Link to="/" className="flex items-center gap-2 group">
-                        <span className="font-bold text-2xl tracking-tight">
-                            <span className="text-primary group-hover:text-white transition-colors duration-300">Your</span>
-                            <span className="text-white group-hover:text-primary transition-colors duration-300">Service</span>
-                        </span>
-                    </Link>
-                    <div className="mt-2 text-xs text-muted-foreground uppercase tracking-wider font-semibold">Super Admin</div>
+                    <div className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">Super Admin</div>
                 </div>
 
                 <nav className="flex-1 space-y-2">
@@ -32,6 +38,33 @@ export default function AdminDashboard() {
                         <Settings className="h-5 w-5" /> Ajustes
                     </a>
                 </nav>
+
+                <div className="mt-auto pt-6 border-t border-white/10">
+                    <div className="flex flex-col gap-3 mb-5 px-2">
+                        <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-2 group cursor-default">
+                                <span className="font-bold text-lg tracking-tight">
+                                    <span className="text-red-500 group-hover:text-white transition-colors duration-300">Soy</span>
+                                    <span className="text-white group-hover:text-red-500 transition-colors duration-300">Admin</span>
+                                </span>
+                            </div>
+                            <div className="h-10 w-10 shrink-0 rounded-full bg-red-500/20 flex items-center justify-center text-red-500 font-bold border border-red-500/30">
+                                {firstName.charAt(0).toUpperCase()}
+                            </div>
+                        </div>
+                        <div className="overflow-hidden">
+                            <p className="text-sm font-medium text-white truncate">{fullName}</p>
+                            <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+                        </div>
+                    </div>
+                    <Button
+                        variant="ghost"
+                        onClick={handleLogout}
+                        className="w-full justify-start text-red-400 hover:text-red-300 hover:bg-red-400/10"
+                    >
+                        <LogOut className="h-5 w-5 mr-3" /> Cerrar Sesión
+                    </Button>
+                </div>
             </aside>
 
             {/* Main Content */}

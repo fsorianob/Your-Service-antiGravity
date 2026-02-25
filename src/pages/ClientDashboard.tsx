@@ -2,7 +2,7 @@ import { Search, Home, Zap, Truck, ShieldCheck, ArrowRight, SunSnow, CalendarChe
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useAuth } from "@/contexts/AuthContext"
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 
 export default function ClientDashboard() {
@@ -30,16 +30,16 @@ export default function ClientDashboard() {
         <div className="min-h-screen bg-[#0F0F0F] text-white">
             {/* Minimal Dashboard Navigation */}
             <header className="border-b border-white/10 bg-[#141414] py-4 px-6 sticky top-0 z-50">
-                <div className="container mx-auto max-w-7xl flex items-center justify-between">
-                    <Link to="/" className="flex items-center gap-2 group">
-                        <span className="font-bold text-xl tracking-tight">
-                            <span className="text-primary group-hover:text-white transition-colors duration-300">Your</span>
-                            <span className="text-white group-hover:text-primary transition-colors duration-300">Service</span>
-                        </span>
-                    </Link>
-
+                <div className="container mx-auto max-w-7xl flex items-center justify-end">
                     <div className="flex items-center gap-4">
-                        <div className="hidden sm:flex items-center gap-2 text-sm text-gray-300">
+                        <div className="hidden sm:flex items-center gap-2 group cursor-default">
+                            <span className="font-bold text-xl tracking-tight">
+                                <span className="text-primary group-hover:text-white transition-colors duration-300">Soy</span>
+                                <span className="text-white group-hover:text-primary transition-colors duration-300">Cliente</span>
+                            </span>
+                        </div>
+
+                        <div className="hidden sm:flex items-center gap-2 text-sm text-gray-300 border-l border-white/10 pl-4 h-8">
                             <div className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold border border-primary/30">
                                 {firstName.charAt(0).toUpperCase()}
                             </div>
@@ -48,7 +48,7 @@ export default function ClientDashboard() {
                         <Button
                             variant="ghost"
                             size="sm"
-                            className="text-gray-400 hover:text-white hover:bg-white/5"
+                            className="text-gray-400 hover:text-white hover:bg-white/5 ml-2"
                             onClick={handleLogout}
                         >
                             <LogOut className="h-4 w-4 mr-2" />

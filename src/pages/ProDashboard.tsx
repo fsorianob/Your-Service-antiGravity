@@ -23,13 +23,7 @@ export default function ProDashboard() {
             {/* Sidebar */}
             <aside className="w-full md:w-64 bg-[#141414] border-r border-white/10 p-6 flex flex-col">
                 <div className="mb-10">
-                    <Link to="/" className="flex items-center gap-2 group">
-                        <span className="font-bold text-2xl tracking-tight">
-                            <span className="text-primary group-hover:text-white transition-colors duration-300">Your</span>
-                            <span className="text-white group-hover:text-primary transition-colors duration-300">Service</span>
-                        </span>
-                    </Link>
-                    <div className="mt-2 text-xs text-muted-foreground uppercase tracking-wider font-semibold">Pro Panel</div>
+                    <div className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">Pro Panel</div>
                 </div>
 
                 <nav className="flex-1 space-y-2">
@@ -48,9 +42,17 @@ export default function ProDashboard() {
                 </nav>
 
                 <div className="mt-auto pt-6 border-t border-white/10">
-                    <div className="flex items-center gap-3 mb-4 px-2">
-                        <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold border border-primary/30">
-                            {firstName.charAt(0).toUpperCase()}
+                    <div className="flex flex-col gap-3 mb-5 px-2">
+                        <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-2 group cursor-default">
+                                <span className="font-bold text-lg tracking-tight">
+                                    <span className="text-primary group-hover:text-white transition-colors duration-300">Soy</span>
+                                    <span className="text-white group-hover:text-primary transition-colors duration-300">Negocio</span>
+                                </span>
+                            </div>
+                            <div className="h-10 w-10 shrink-0 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold border border-primary/30">
+                                {firstName.charAt(0).toUpperCase()}
+                            </div>
                         </div>
                         <div className="overflow-hidden">
                             <p className="text-sm font-medium text-white truncate">{fullName}</p>
