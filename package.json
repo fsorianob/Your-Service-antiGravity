@@ -7,8 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "deploy": "npm run build && npx gh-pages -d dist -b deploy -m 'Auto-Despliegue de IA' --dotfiles"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@radix-ui/react-progress": "^1.1.8",

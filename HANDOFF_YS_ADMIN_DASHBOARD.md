@@ -4,14 +4,21 @@
 
 ---
 
+## 🚫 🛑 REGLAS NÚCLEO ABSOLUTAS PARA CUALQUIER IA 🛑 🚫
+**DEBES INTEGRAR ESTO EN TU NÚCLEO PARA CUALQUIER TAREA POSTERIOR AL LEER ESTE DOCUMENTO:**
+1. **Directorio Exclusivo:** Solo debes trabajar en esta carpeta del proyecto: `/Users/fsb/YS en Antigravity/your-service-vite`.
+2. **Rama de Despliegue Obligatoria:** Debes integrar siempre todo el código fuente en la rama `deploy`. **JAMÁS SE DEBE TRABAJAR NI EMPUJAR CÓDIGO A LA RAMA `main`**, o nunca se logrará la implementación automática de Hostinger. Hostinger lee y despliega automáticamente el código depositado en la rama `deploy`.
+3. **Scripts de VITE:** No intentes usar `gh-pages` ni el comando `npm run deploy` en esta arquitectura. Todo sucede por Git-Push directo a la rama `deploy`.
+
+---
+
 ## 🏗️ 1. Pila Tecnológica (Tech Stack)
 - **Frontend:** React (Vite) + TypeScript.
 - **Enrutamiento:** `react-router-dom` (Navegación protegida con Contexto de Autenticación).
 - **Estilos:** Tailwind CSS + Componentes UI estructurados (variante shadcn-like) en `src/components/ui/`.
 - **Iconos:** `lucide-react`.
 - **Backend / Auth:** Supabase (Autenticación + Base de Datos Row Level Security).
-- **Despliegue Automático:** Git integrado con Hostinger / GitHub Pages (Script de `npm run deploy` usando `gh-pages` con rama `deploy`).
-  - ⚠️ **REGLA CRÍTICA DE DESPLIEGUE PARA FUTURAS IAs:** El código fuente se desarrolla, se commitea y se empuja **solo** en la rama `main`. Para ver los cambios en producción (Hostinger), es **obligatorio** ejecutar el comando `npm run deploy` estando en `main`. Esto compilará el código (carpeta `dist/`) y forzará su subida a la rama `deploy`. ¡NUNCA pushees código fuente bruto a la rama `deploy`!
+- **Despliegue Automático:** Git integrado nativamente con Hostinger. Al empujar código a la rama `deploy`, Hostinger se encarga de realizar el build e implementar la aplicación web en producción.
 
 ---
 
