@@ -14,6 +14,7 @@ import HelpPage from "@/pages/Help"
 import ClientDashboard from "@/pages/ClientDashboard"
 import ProDashboard from "@/pages/ProDashboard"
 import AdminDashboard from "@/pages/AdminDashboard"
+import { Toaster } from "sonner"
 
 import ForgotPasswordPage from "@/pages/ForgotPassword"
 import ResetPasswordPage from "@/pages/ResetPassword"
@@ -32,6 +33,7 @@ function ScrollToTop() {
 function App() {
   return (
     <AuthProvider>
+      <Toaster theme="dark" position="bottom-right" richColors />
       <BrowserRouter>
         <ScrollToTop />
         <Routes>
