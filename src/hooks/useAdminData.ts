@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 import { toast } from 'sonner'
+import emailjs from '@emailjs/browser'
 
 export interface PendingPro {
     id: string
@@ -110,11 +111,32 @@ export function useAdminData() {
             if (error) {
                 // Si la tabla no existe, Supabase tirará error 42P01. Simulamos en ese caso para no quebrar el front.
                 if (error.code === '42P01') {
-                    console.warn("Tabla admin_invitations no existe, simulando envío.")
-                    await new Promise(resolve => setTimeout(resolve, 1000))
+                    console.warn("Tabla admin_invitations no existe, simulando guardado en DB.")
                 } else {
                     throw error
                 }
+            }
+
+            // Enviar correo electrónico vía EmailJS
+            const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
+            const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
+            const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+
+            if (serviceId && templateId && publicKey) {
+                try {
+                    await emailjs.send(
+                        serviceId,
+                        templateId,
+                        { to_email: email }, // Template expected variable
+                        publicKey
+                    )
+                } catch (emailError) {
+                    console.error("EmailJS Error:", emailError)
+                    toast.error("La invitación se guardó pero falló el envío del correo.")
+                    return false
+                }
+            } else {
+                console.warn("Faltan las variables de entorno de EmailJS. No se envió el correo real.")
             }
 
             toast.success(`Invitación enviada exitosamente a ${email}.`)

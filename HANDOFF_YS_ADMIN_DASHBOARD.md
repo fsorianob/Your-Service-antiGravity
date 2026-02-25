@@ -11,6 +11,7 @@
 - **Iconos:** `lucide-react`.
 - **Backend / Auth:** Supabase (Autenticación + Base de Datos Row Level Security).
 - **Despliegue Automático:** Git integrado con Hostinger / GitHub Pages (Script de `npm run deploy` usando `gh-pages` con rama `deploy`).
+  - ⚠️ **REGLA CRÍTICA DE DESPLIEGUE PARA FUTURAS IAs:** El código fuente se desarrolla, se commitea y se empuja **solo** en la rama `main`. Para ver los cambios en producción (Hostinger), es **obligatorio** ejecutar el comando `npm run deploy` estando en `main`. Esto compilará el código (carpeta `dist/`) y forzará su subida a la rama `deploy`. ¡NUNCA pushees código fuente bruto a la rama `deploy`!
 
 ---
 
