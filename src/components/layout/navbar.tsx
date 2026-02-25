@@ -35,31 +35,38 @@ export function Navbar() {
                     </Link>
                 </nav>
                 <div className="hidden md:flex gap-4 items-center">
-                    <Link to="/join-pro">
-                        <Button variant="ghost" className="text-white hover:text-primary hover:bg-transparent">
-                            Soy Profesional
-                        </Button>
-                    </Link>
                     {user ? (
-                        <div className="relative group/user flex items-center gap-4">
-                            <button className="flex items-center gap-2 text-sm text-white font-medium hover:text-primary transition-colors">
-                                <User size={16} />
-                                Hola, {user.user_metadata.full_name?.split(' ')[0]}
-                            </button>
-                            {/* User Dropdown */}
-                            <div className="absolute right-0 top-full mt-2 hidden min-w-[200px] flex-col rounded-xl border border-white/10 bg-[#141414] p-2 shadow-xl group-hover/user:flex z-50">
-                                <Link to="/dashboard/client" className="rounded-lg px-3 py-2 text-sm text-gray-300 hover:bg-white/5 hover:text-primary">Mis Servicios (Cliente)</Link>
-                                <Link to="/dashboard/pro" className="rounded-lg px-3 py-2 text-sm text-gray-300 hover:bg-white/5 hover:text-primary">Mi Panel (Profesional)</Link>
-                                <div className="h-[1px] bg-white/10 my-1 mx-2" />
-                                <Link to="/dashboard/admin" className="rounded-lg px-3 py-2 text-xs text-muted-foreground hover:bg-white/5 hover:text-primary">Administración</Link>
-                                <div className="h-[1px] bg-white/10 my-1 mx-2" />
-                                <button onClick={() => signOut()} className="w-full text-left rounded-lg px-3 py-2 text-sm text-red-400 hover:bg-white/5 hover:text-red-300">
-                                    Cerrar Sesión
+                        <>
+                            <Link to="/dashboard/client">
+                                <Button variant="ghost" className="text-white hover:text-primary hover:bg-transparent font-medium">
+                                    Mi Panel
+                                </Button>
+                            </Link>
+                            <div className="relative group/user flex items-center gap-4">
+                                <button className="flex items-center gap-2 text-sm text-white font-medium hover:text-primary transition-colors">
+                                    <User size={16} />
+                                    Hola, {user.user_metadata.full_name?.split(' ')[0]}
                                 </button>
+                                {/* User Dropdown */}
+                                <div className="absolute right-0 top-full mt-2 hidden min-w-[200px] flex-col rounded-xl border border-white/10 bg-[#141414] p-2 shadow-xl group-hover/user:flex z-50">
+                                    <Link to="/dashboard/client" className="rounded-lg px-3 py-2 text-sm text-gray-300 hover:bg-white/5 hover:text-primary">Mis Servicios (Cliente)</Link>
+                                    <Link to="/dashboard/pro" className="rounded-lg px-3 py-2 text-sm text-gray-300 hover:bg-white/5 hover:text-primary">Mi Panel (Profesional)</Link>
+                                    <div className="h-[1px] bg-white/10 my-1 mx-2" />
+                                    <Link to="/dashboard/admin" className="rounded-lg px-3 py-2 text-xs text-muted-foreground hover:bg-white/5 hover:text-primary">Administración</Link>
+                                    <div className="h-[1px] bg-white/10 my-1 mx-2" />
+                                    <button onClick={() => signOut()} className="w-full text-left rounded-lg px-3 py-2 text-sm text-red-400 hover:bg-white/5 hover:text-red-300">
+                                        Cerrar Sesión
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+                        </>
                     ) : (
                         <>
+                            <Link to="/join-pro">
+                                <Button variant="ghost" className="text-white hover:text-primary hover:bg-transparent">
+                                    Soy Profesional
+                                </Button>
+                            </Link>
                             <Link to="/login">
                                 <Button variant="ghost" className="text-white hover:text-white/80 hover:bg-transparent">
                                     Iniciar Sesión
@@ -97,18 +104,25 @@ export function Navbar() {
                         <Link to="/search" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
                             Explorar
                         </Link>
-                        <Link to="/join-pro" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
-                            Soy Profesional
-                        </Link>
+                        {!user && (
+                            <Link to="/join-pro" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors" onClick={() => setIsMenuOpen(false)}>
+                                Soy Profesional
+                            </Link>
+                        )}
                     </nav>
                     <div className="flex flex-col gap-3 pt-4 border-t border-white/10">
                         {user ? (
                             <>
-                                <div className="flex items-center gap-2 text-white">
+                                <div className="flex items-center gap-2 text-white pb-2">
                                     <User size={16} />
                                     <span className="font-medium">{user.user_metadata.full_name}</span>
                                 </div>
-                                <Button variant="outline" onClick={() => signOut()} className="w-full border-white/10 text-white">
+                                <Link to="/dashboard/client" onClick={() => setIsMenuOpen(false)}>
+                                    <Button variant="ghost" className="w-full justify-start text-white hover:text-primary hover:bg-transparent px-0">
+                                        Mi Panel
+                                    </Button>
+                                </Link>
+                                <Button variant="outline" onClick={() => signOut()} className="w-full border-white/10 text-white mt-2 hover:bg-white/5">
                                     Cerrar Sesión
                                 </Button>
                             </>
