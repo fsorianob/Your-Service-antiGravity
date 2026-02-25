@@ -1,9 +1,22 @@
-import { LayoutDashboard, Inbox, DollarSign, Settings, Star, AlertCircle, ArrowRight, Wallet } from "lucide-react"
+import { LayoutDashboard, Inbox, DollarSign, Settings, Star, AlertCircle, ArrowRight, Wallet, LogOut, TrendingUp } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useAuth } from "@/contexts/AuthContext"
 
 export default function ProDashboard() {
+    const { user, signOut } = useAuth()
+    const navigate = useNavigate()
+
+    const handleLogout = async () => {
+        await signOut()
+        navigate("/login")
+    }
+
+    // Extract first name for a friendlier greeting
+    const fullName = user?.user_metadata?.full_name || "Profesional"
+    const firstName = fullName.split(' ')[0]
+
     return (
         <div className="min-h-screen bg-[#0F0F0F] text-white flex flex-col md:flex-row">
 
@@ -20,26 +33,45 @@ export default function ProDashboard() {
                 </div>
 
                 <nav className="flex-1 space-y-2">
-                    <a href="#" className="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary/10 text-primary font-medium transition-colors">
+                    <Link to="/dashboard/pro" className="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary/10 text-primary font-medium transition-colors">
                         <LayoutDashboard className="h-5 w-5" /> Resumen
-                    </a>
-                    <a href="#" className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 text-gray-400 hover:text-white transition-colors">
+                    </Link>
+                    <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 text-gray-400 hover:text-white transition-colors">
                         <Inbox className="h-5 w-5" /> Oportunidades <span className="ml-auto bg-primary text-black text-xs font-bold px-2 py-0.5 rounded-full">3</span>
-                    </a>
-                    <a href="#" className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 text-gray-400 hover:text-white transition-colors">
+                    </button>
+                    <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 text-gray-400 hover:text-white transition-colors">
                         <DollarSign className="h-5 w-5" /> Finanzas
-                    </a>
-                    <a href="#" className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 text-gray-400 hover:text-white transition-colors">
-                        <Settings className="h-5 w-5" /> Configuración
-                    </a>
+                    </button>
+                    <Link to="/pro/profile" className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 text-gray-400 hover:text-white transition-colors">
+                        <Settings className="h-5 w-5" /> Mi Perfil Público
+                    </Link>
                 </nav>
+
+                <div className="mt-auto pt-6 border-t border-white/10">
+                    <div className="flex items-center gap-3 mb-4 px-2">
+                        <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold border border-primary/30">
+                            {firstName.charAt(0).toUpperCase()}
+                        </div>
+                        <div className="overflow-hidden">
+                            <p className="text-sm font-medium text-white truncate">{fullName}</p>
+                            <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+                        </div>
+                    </div>
+                    <Button
+                        variant="ghost"
+                        onClick={handleLogout}
+                        className="w-full justify-start text-red-400 hover:text-red-300 hover:bg-red-400/10"
+                    >
+                        <LogOut className="h-5 w-5 mr-3" /> Cerrar Sesión
+                    </Button>
+                </div>
             </aside>
 
             {/* Main Content */}
             <main className="flex-1 p-6 md:p-10 animate-in fade-in duration-500 overflow-y-auto">
                 <header className="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div>
-                        <h1 className="text-3xl font-bold">¡Hola, Profesional!</h1>
+                        <h1 className="text-3xl font-bold">¡Hola, <span className="text-primary">{firstName}</span>!</h1>
                         <p className="text-muted-foreground mt-1">Aquí tienes el resumen de tu rendimiento.</p>
                     </div>
                     <Button variant="outline" className="border-primary text-primary hover:bg-primary/20">
@@ -55,7 +87,7 @@ export default function ProDashboard() {
                         </div>
                         <div className="text-4xl font-bold text-white mb-2">$850.000</div>
                         <div className="text-sm text-green-400 flex items-center gap-1">
-                            <TrendingUpIcon className="h-4 w-4" /> +12% vs mes anterior
+                            <TrendingUp className="h-4 w-4" /> +12% vs mes anterior
                         </div>
                     </div>
 
@@ -121,25 +153,5 @@ export default function ProDashboard() {
 
             </main>
         </div>
-    )
-}
-
-function TrendingUpIcon(props: any) {
-    return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
-            <polyline points="16 7 22 7 22 13" />
-        </svg>
     )
 }
