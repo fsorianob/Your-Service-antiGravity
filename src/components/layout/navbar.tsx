@@ -33,16 +33,6 @@ export function Navbar() {
                     <Link to="/join-pro" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
                         ¿Eres profesional?
                     </Link>
-                    <div className="relative group/dash inline-block">
-                        <button className="text-sm font-medium text-primary hover:text-white transition-colors flex items-center gap-1">
-                            Dashboards <Menu className="h-3 w-3" />
-                        </button>
-                        <div className="absolute left-0 top-full mt-2 hidden min-w-[150px] flex-col rounded-xl border border-white/10 bg-[#141414] p-2 shadow-xl group-hover/dash:flex z-50">
-                            <Link to="/dashboard/client" className="rounded-lg px-3 py-2 text-sm text-gray-300 hover:bg-white/5 hover:text-primary">Panel Cliente</Link>
-                            <Link to="/dashboard/pro" className="rounded-lg px-3 py-2 text-sm text-gray-300 hover:bg-white/5 hover:text-primary">Panel Profesional</Link>
-                            <Link to="/dashboard/admin" className="rounded-lg px-3 py-2 text-sm text-gray-300 hover:bg-white/5 hover:text-primary">Super Admin</Link>
-                        </div>
-                    </div>
                 </nav>
                 <div className="hidden md:flex gap-4 items-center">
                     <Link to="/join-pro">
@@ -51,11 +41,22 @@ export function Navbar() {
                         </Button>
                     </Link>
                     {user ? (
-                        <div className="flex items-center gap-4">
-                            <span className="text-sm text-white font-medium">Hola, {user.user_metadata.full_name?.split(' ')[0]}</span>
-                            <Button variant="outline" size="sm" onClick={() => signOut()} className="border-white/10 text-white hover:bg-white/10">
-                                Salir
-                            </Button>
+                        <div className="relative group/user flex items-center gap-4">
+                            <button className="flex items-center gap-2 text-sm text-white font-medium hover:text-primary transition-colors">
+                                <User size={16} />
+                                Hola, {user.user_metadata.full_name?.split(' ')[0]}
+                            </button>
+                            {/* User Dropdown */}
+                            <div className="absolute right-0 top-full mt-2 hidden min-w-[200px] flex-col rounded-xl border border-white/10 bg-[#141414] p-2 shadow-xl group-hover/user:flex z-50">
+                                <Link to="/dashboard/client" className="rounded-lg px-3 py-2 text-sm text-gray-300 hover:bg-white/5 hover:text-primary">Mis Servicios (Cliente)</Link>
+                                <Link to="/dashboard/pro" className="rounded-lg px-3 py-2 text-sm text-gray-300 hover:bg-white/5 hover:text-primary">Mi Panel (Profesional)</Link>
+                                <div className="h-[1px] bg-white/10 my-1 mx-2" />
+                                <Link to="/dashboard/admin" className="rounded-lg px-3 py-2 text-xs text-muted-foreground hover:bg-white/5 hover:text-primary">Administración</Link>
+                                <div className="h-[1px] bg-white/10 my-1 mx-2" />
+                                <button onClick={() => signOut()} className="w-full text-left rounded-lg px-3 py-2 text-sm text-red-400 hover:bg-white/5 hover:text-red-300">
+                                    Cerrar Sesión
+                                </button>
+                            </div>
                         </div>
                     ) : (
                         <>
