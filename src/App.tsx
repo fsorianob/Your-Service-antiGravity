@@ -11,6 +11,9 @@ import ProfessionalProfile from "@/pages/Profile"
 import BookPage from "@/pages/Book"
 import InfoPage from "@/pages/Info"
 import HelpPage from "@/pages/Help"
+import ClientDashboard from "@/pages/ClientDashboard"
+import ProDashboard from "@/pages/ProDashboard"
+import AdminDashboard from "@/pages/AdminDashboard"
 
 import ForgotPasswordPage from "@/pages/ForgotPassword"
 import ResetPasswordPage from "@/pages/ResetPassword"
@@ -44,8 +47,12 @@ function App() {
             <Route path="/book/:proId" element={<BookPage />} />
             <Route path="/info/:slug" element={<InfoPage />} />
             <Route path="/help" element={<HelpPage />} />
+            <Route path="/dashboard/client" element={<ClientDashboard />} />
             <Route path="*" element={<div className="min-h-screen flex items-center justify-center text-white">404 - Página no encontrada</div>} />
           </Route>
+          {/* Dashboards without general navbar/footer */}
+          <Route path="/dashboard/pro" element={<ProDashboard />} />
+          <Route path="/dashboard/admin" element={<AdminDashboard />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

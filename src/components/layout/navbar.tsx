@@ -33,6 +33,16 @@ export function Navbar() {
                     <Link to="/join-pro" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
                         ¿Eres profesional?
                     </Link>
+                    <div className="relative group/dash inline-block">
+                        <button className="text-sm font-medium text-primary hover:text-white transition-colors flex items-center gap-1">
+                            Dashboards <Menu className="h-3 w-3" />
+                        </button>
+                        <div className="absolute left-0 top-full mt-2 hidden min-w-[150px] flex-col rounded-xl border border-white/10 bg-[#141414] p-2 shadow-xl group-hover/dash:flex z-50">
+                            <Link to="/dashboard/client" className="rounded-lg px-3 py-2 text-sm text-gray-300 hover:bg-white/5 hover:text-primary">Panel Cliente</Link>
+                            <Link to="/dashboard/pro" className="rounded-lg px-3 py-2 text-sm text-gray-300 hover:bg-white/5 hover:text-primary">Panel Profesional</Link>
+                            <Link to="/dashboard/admin" className="rounded-lg px-3 py-2 text-sm text-gray-300 hover:bg-white/5 hover:text-primary">Super Admin</Link>
+                        </div>
+                    </div>
                 </nav>
                 <div className="hidden md:flex gap-4 items-center">
                     <Link to="/join-pro">
