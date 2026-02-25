@@ -1,33 +1,90 @@
-import { Search, Home, Zap, Truck, ShieldCheck, ArrowRight, SunSnow, CalendarCheck, TrendingUp } from "lucide-react"
+import { Search, Home, Zap, Truck, ShieldCheck, ArrowRight, SunSnow, CalendarCheck, TrendingUp, LogOut } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { useAuth } from "@/contexts/AuthContext"
+import { useNavigate, Link } from "react-router-dom"
+import { useState } from "react"
 
 export default function ClientDashboard() {
+    const { user, signOut } = useAuth()
+    const navigate = useNavigate()
+    const [searchQuery, setSearchQuery] = useState("")
+
+    const handleLogout = async () => {
+        await signOut()
+        navigate("/login")
+    }
+
+    const handleSearch = (e: React.FormEvent) => {
+        e.preventDefault()
+        if (searchQuery.trim()) {
+            navigate(`/search?q=${encodeURIComponent(searchQuery)}`)
+        }
+    }
+
+    // Extract first name for a friendlier greeting
+    const fullName = user?.user_metadata?.full_name || "Usuario"
+    const firstName = fullName.split(' ')[0]
+
     return (
         <div className="min-h-screen bg-[#0F0F0F] text-white">
+            {/* Minimal Dashboard Navigation */}
+            <header className="border-b border-white/10 bg-[#141414] py-4 px-6 sticky top-0 z-50">
+                <div className="container mx-auto max-w-7xl flex items-center justify-between">
+                    <Link to="/" className="flex items-center gap-2 group">
+                        <span className="font-bold text-xl tracking-tight">
+                            <span className="text-primary group-hover:text-white transition-colors duration-300">Your</span>
+                            <span className="text-white group-hover:text-primary transition-colors duration-300">Service</span>
+                        </span>
+                    </Link>
+
+                    <div className="flex items-center gap-4">
+                        <div className="hidden sm:flex items-center gap-2 text-sm text-gray-300">
+                            <div className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold border border-primary/30">
+                                {firstName.charAt(0).toUpperCase()}
+                            </div>
+                            <span>{fullName}</span>
+                        </div>
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            className="text-gray-400 hover:text-white hover:bg-white/5"
+                            onClick={handleLogout}
+                        >
+                            <LogOut className="h-4 w-4 mr-2" />
+                            <span className="hidden sm:inline">Cerrar Sesión</span>
+                        </Button>
+                    </div>
+                </div>
+            </header>
+
             <main className="container mx-auto px-4 py-8 max-w-7xl animate-in fade-in duration-500">
 
                 {/* Header Section */}
                 <div className="mb-12 text-center md:text-left">
-                    <h1 className="text-3xl md:text-5xl font-bold mb-4">¿En qué podemos <span className="text-primary">ayudarte hoy?</span></h1>
-                    <p className="text-muted-foreground text-lg">Encuentra a los mejores profesionales en Santiago para los proyectos de tu hogar.</p>
+                    <h1 className="text-3xl md:text-5xl font-bold mb-4">
+                        ¡Hola, <span className="text-primary">{firstName}</span>!
+                    </h1>
+                    <p className="text-muted-foreground text-lg">¿En qué podemos ayudarte en tu hogar hoy?</p>
                 </div>
 
                 {/* Omnichannel Search */}
                 <div className="bg-[#1A1A1A] rounded-2xl p-4 md:p-6 mb-12 shadow-2xl border border-white/5 relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[80px] -mr-32 -mt-32 pointer-events-none"></div>
-                    <form className="relative flex flex-col md:flex-row gap-4 z-10">
+                    <form onSubmit={handleSearch} className="relative flex flex-col md:flex-row gap-4 z-10">
                         <div className="relative flex-1">
                             <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-primary" />
                             <Input
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
                                 placeholder="Ej: 'Instalar lámparas en la cocina' o 'Reparar fuga de agua'..."
                                 className="pl-12 h-14 bg-black/40 border-white/10 text-lg rounded-xl focus-visible:ring-primary/50 text-white placeholder:text-gray-500"
                             />
                         </div>
-                        <Button variant="gold" className="h-14 px-8 text-lg font-bold rounded-xl whitespace-nowrap hidden md:flex">
+                        <Button type="submit" variant="gold" className="h-14 px-8 text-lg font-bold rounded-xl whitespace-nowrap hidden md:flex">
                             Buscar Expertos
                         </Button>
-                        <Button variant="gold" className="h-14 px-8 text-lg font-bold rounded-xl md:hidden w-full">
+                        <Button type="submit" variant="gold" className="h-14 px-8 text-lg font-bold rounded-xl md:hidden w-full">
                             Buscar
                         </Button>
                     </form>
@@ -35,13 +92,13 @@ export default function ClientDashboard() {
                     {/* Quick Access Categories */}
                     <div className="flex flex-wrap gap-3 mt-6">
                         <span className="text-sm font-medium text-gray-400 self-center mr-2">Servicios Populares:</span>
-                        <Button variant="outline" size="sm" className="bg-black/30 border-white/10 text-white hover:border-primary/50 hover:bg-black/50 hover:text-primary transition-all rounded-full px-4">
+                        <Button variant="outline" size="sm" className="bg-black/30 border-white/10 text-white hover:border-primary/50 hover:bg-black/50 hover:text-primary transition-all rounded-full px-4" onClick={() => navigate('/search?q=Limpieza')}>
                             <Home className="h-4 w-4 mr-2 text-primary" /> Limpieza
                         </Button>
-                        <Button variant="outline" size="sm" className="bg-black/30 border-white/10 text-white hover:border-primary/50 hover:bg-black/50 hover:text-primary transition-all rounded-full px-4">
+                        <Button variant="outline" size="sm" className="bg-black/30 border-white/10 text-white hover:border-primary/50 hover:bg-black/50 hover:text-primary transition-all rounded-full px-4" onClick={() => navigate('/search?q=Mudanzas')}>
                             <Truck className="h-4 w-4 mr-2 text-primary" /> Mudanzas
                         </Button>
-                        <Button variant="outline" size="sm" className="bg-black/30 border-white/10 text-white hover:border-primary/50 hover:bg-black/50 hover:text-primary transition-all rounded-full px-4">
+                        <Button variant="outline" size="sm" className="bg-black/30 border-white/10 text-white hover:border-primary/50 hover:bg-black/50 hover:text-primary transition-all rounded-full px-4" onClick={() => navigate('/search?q=Electricidad')}>
                             <Zap className="h-4 w-4 mr-2 text-primary" /> Electricidad
                         </Button>
                     </div>
