@@ -10,8 +10,11 @@
 - **Estilos:** Tailwind CSS + Componentes UI estructurados (variante shadcn-like) en `src/components/ui/`.
 - **Iconos:** `lucide-react`.
 - **Backend / Auth:** Supabase (Autenticación + Base de Datos Row Level Security).
-- **Despliegue Automático:** Git integrado con Hostinger / GitHub Pages (Script de `npm run deploy` usando `gh-pages` con rama `deploy`).
-  - ⚠️ **REGLA CRÍTICA DE DESPLIEGUE PARA FUTURAS IAs:** El código fuente se desarrolla, se commitea y se empuja **solo** en la rama `main`. Para ver los cambios en producción (Hostinger), es **obligatorio** ejecutar el comando `npm run deploy` estando en `main`. Esto compilará el código (carpeta `dist/`) y forzará su subida a la rama `deploy`. ¡NUNCA pushees código fuente bruto a la rama `deploy`!
+- **Despliegue Automático (Arquitectura Hostinger):** Hostinger lee *exclusivamente* la rama `deploy`.
+  - 🚫 **REGLAS NÚCLEO ABSOLUTAS PARA CUALQUIER IA:** 
+    1. **Directorio Exclusivo:** Trabajar solo en `/Users/fsb/YS en Antigravity/your-service-vite`.
+    2. **Manejo de Ramas (Deploy vs Main):** TODO el producto final empaquetado SIEMPRE debe ir a la rama `deploy` para que la implementación automática de Hostinger lo lea. **SIN EMBARGO, NUNCA empujes código fuente de desarrollo crudo (.ts, jsx) a la rama `deploy`**.
+    3. **Ciclo de Integración Obligatorio:** Desarrolla todo tu código limpio en la rama `main`. Cuando estés listo para enviar a producción, **debes ejecutar exclusivamente el comando `npm run deploy`** estando en `main`. Este script compila el código, incrusta las llaves de seguridad (.env) y automáticamente empuja el producto puro final (carpeta `dist/`) a la rama `deploy`. Si rompes esta regla y empujas a `deploy` manualmente, destruirás el sitio web.
 
 ---
 
