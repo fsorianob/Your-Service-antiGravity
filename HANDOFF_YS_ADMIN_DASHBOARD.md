@@ -18,7 +18,7 @@
 - **Estilos:** Tailwind CSS + Componentes UI estructurados (variante shadcn-like) en `src/components/ui/`.
 - **Iconos:** `lucide-react`.
 - **Backend / Auth:** Supabase (Autenticación + Base de Datos Row Level Security).
-- **Despliegue Automático:** Git integrado nativamente con Hostinger. Al empujar código a la rama `deploy`, Hostinger se encarga de realizar el build e implementar la aplicación web en producción.
+- **Despliegue Automático:** Git integrado nativamente con Hostinger. Al empujar código OBLIGATORIAMENTE a la rama `deploy`, Hostinger se encarga de extraerlo, realizar el `npm run build` en su servidor, e implementar la aplicación web en producción. No usar comandos de deploy locales ni gh-pages.
 
 ---
 
