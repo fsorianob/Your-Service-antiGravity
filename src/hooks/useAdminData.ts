@@ -16,6 +16,13 @@ export interface AdminMetrics {
     completedServices: number
 }
 
+export interface RecentUser {
+    id: string
+    full_name: string
+    role: string
+    created_at: string
+}
+
 export function useAdminData() {
     const [metrics, setMetrics] = useState<AdminMetrics>({
         totalUsers: 0,
@@ -23,6 +30,8 @@ export function useAdminData() {
         completedServices: 0
     })
     const [pendingPros, setPendingPros] = useState<PendingPro[]>([])
+    const [recentUsers, setRecentUsers] = useState<RecentUser[]>([])
+    const [settings, setSettings] = useState({ generalCommissionRate: 15, pricePerLead: 2000 })
     const [loading, setLoading] = useState(true)
 
     // Action states
@@ -44,12 +53,29 @@ export function useAdminData() {
                 .eq('role', 'professional')
                 .eq('verified', false)
 
+            // Fetch Recent Users
+            const { data: recentData } = await supabase.from('profiles')
+                .select('id, full_name, role, created_at')
+                .order('created_at', { ascending: false })
+                .limit(5)
+
+            // Fetch Settings (Fallback to defaults if table missing/empty)
+            const { data: settingsData, error: settingsError } = await supabase.from('platform_settings').select('*').limit(1).single()
+
             setMetrics({
                 totalUsers: usersCount || 0,
                 activePros: prosCount || 0,
                 completedServices: reqsCount || 0
             })
             setPendingPros(prosData || [])
+            setRecentUsers(recentData || [])
+
+            if (settingsData && !settingsError) {
+                setSettings({
+                    generalCommissionRate: Number(settingsData.general_commission) || 15,
+                    pricePerLead: Number(settingsData.price_per_lead) || 2000
+                })
+            }
 
         } catch (err) {
             console.error('Error fetching admin data:', err)
@@ -93,6 +119,24 @@ export function useAdminData() {
             toast.error(`No se pudo rechazar a ${name}.`)
         } finally {
             setIsRejecting(null)
+        }
+    }
+
+    const handleSaveSettings = async (newSettings: { generalCommissionRate: number, pricePerLead: number }) => {
+        try {
+            const { error } = await supabase.from('platform_settings').upsert({
+                id: 1,
+                general_commission: newSettings.generalCommissionRate,
+                price_per_lead: newSettings.pricePerLead
+            })
+            if (error) throw error
+            setSettings(newSettings)
+            toast.success("Configuración financiera actualizada.")
+            return true
+        } catch (error) {
+            console.error('Error saving settings:', error)
+            toast.error("Error al actualizar configuración (¿Tabla creada?).")
+            return false
         }
     }
 
@@ -153,6 +197,8 @@ export function useAdminData() {
     return {
         metrics,
         pendingPros,
+        recentUsers,
+        settings,
         loading,
         isApproving,
         isRejecting,
@@ -160,6 +206,7 @@ export function useAdminData() {
         handleApprove,
         handleReject,
         handleInviteAdmin,
+        handleSaveSettings,
         refreshData: fetchAdminData
     }
 }

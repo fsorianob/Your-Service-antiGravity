@@ -3,9 +3,7 @@ import { Button } from "@/components/ui/button"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "@/contexts/AuthContext"
 import { useAdminData } from "@/hooks/useAdminData"
-import { platformConfig } from "@/config/platform"
-import { useState } from "react"
-import { toast } from "sonner"
+import { useState, useEffect } from "react"
 
 export default function AdminDashboard() {
     const { user, signOut } = useAuth()
@@ -22,23 +20,30 @@ export default function AdminDashboard() {
     const {
         metrics,
         pendingPros,
+        recentUsers,
+        settings,
         loading,
         isApproving,
         isRejecting,
         isInviting,
         handleApprove,
         handleReject,
-        handleInviteAdmin
+        handleInviteAdmin,
+        handleSaveSettings
     } = useAdminData()
 
     const [inviteEmail, setInviteEmail] = useState("")
 
     // Config State
-    const [config, setConfig] = useState(platformConfig.get())
+    const [localSettings, setLocalSettings] = useState({ generalCommissionRate: 15, pricePerLead: 2000 })
 
-    const handleSaveConfig = () => {
-        platformConfig.set(config)
-        toast.success("Configuración de ingresos guardada exitosamente.")
+    // Sync external settings on load
+    useEffect(() => {
+        if (!loading) setLocalSettings(settings)
+    }, [settings, loading])
+
+    const onSaveConfig = async () => {
+        await handleSaveSettings(localSettings)
     }
 
     const onInviteSubmit = async () => {
@@ -214,8 +219,8 @@ export default function AdminDashboard() {
                                 <div className="flex bg-black/40 rounded-lg border border-white/10 focus-within:border-primary/50 overflow-hidden transition-colors">
                                     <input
                                         type="number"
-                                        value={config.generalCommissionRate}
-                                        onChange={(e) => setConfig({ ...config, generalCommissionRate: Number(e.target.value) })}
+                                        value={localSettings.generalCommissionRate}
+                                        onChange={(e) => setLocalSettings({ ...localSettings, generalCommissionRate: Number(e.target.value) })}
                                         className="bg-transparent w-full text-white px-4 py-2 outline-none"
                                     />
                                     <div className="bg-white/5 px-4 flex items-center text-gray-400 font-medium">%</div>
@@ -228,19 +233,68 @@ export default function AdminDashboard() {
                                     <div className="bg-white/5 px-4 flex items-center text-gray-400 font-medium">$</div>
                                     <input
                                         type="number"
-                                        value={config.pricePerLead}
-                                        onChange={(e) => setConfig({ ...config, pricePerLead: Number(e.target.value) })}
+                                        value={localSettings.pricePerLead}
+                                        onChange={(e) => setLocalSettings({ ...localSettings, pricePerLead: Number(e.target.value) })}
                                         className="bg-transparent w-full text-white px-4 py-2 outline-none"
                                     />
                                 </div>
                             </div>
 
-                            <Button onClick={handleSaveConfig} variant="outline" className="w-full border-primary/50 text-white hover:bg-primary/20 transition-colors mt-2">
+                            <Button onClick={onSaveConfig} variant="outline" className="w-full border-primary/50 text-white hover:bg-primary/20 transition-colors mt-2">
                                 Guardar Cambios
                             </Button>
                         </div>
                     </section>
                 </div>
+
+                {/* Recent Activity (New Features Section) */}
+                <section className="mb-10">
+                    <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+                        <Activity className="h-5 w-5 text-primary" /> Actividad Reciente de Usuarios
+                    </h2>
+                    <div className="bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 overflow-hidden shadow-lg">
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-left text-sm whitespace-nowrap">
+                                <thead className="bg-black/40 border-b border-white/10 text-gray-400">
+                                    <tr>
+                                        <th className="px-6 py-4 font-medium">Usuario</th>
+                                        <th className="px-6 py-4 font-medium">Identificador</th>
+                                        <th className="px-6 py-4 font-medium">Fecha de Registro</th>
+                                        <th className="px-6 py-4 font-medium text-right">Rol</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-white/5">
+                                    {recentUsers.length > 0 ? recentUsers.map(u => (
+                                        <tr key={u.id} className="hover:bg-white/5 transition-colors">
+                                            <td className="px-6 py-4 flex items-center gap-3">
+                                                <div className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold border border-primary/30 uppercase text-xs">
+                                                    {u.full_name?.charAt(0) || 'U'}
+                                                </div>
+                                                <span className="font-medium text-white">{u.full_name || 'Sin Nombre'}</span>
+                                            </td>
+                                            <td className="px-6 py-4 text-gray-400 font-mono text-xs">{u.id.substring(0, 8)}...</td>
+                                            <td className="px-6 py-4 text-gray-400">
+                                                {new Intl.DateTimeFormat('es-CL', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }).format(new Date(u.created_at))}
+                                            </td>
+                                            <td className="px-6 py-4 text-right">
+                                                <span className={`px-2 py-1 rounded text-xs font-bold ${u.role === 'admin' ? 'bg-red-500/20 text-red-400' :
+                                                    u.role === 'professional' ? 'bg-primary/20 text-primary' :
+                                                        'bg-blue-500/20 text-blue-400'
+                                                    }`}>
+                                                    {u.role.toUpperCase()}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    )) : (
+                                        <tr>
+                                            <td colSpan={4} className="px-6 py-8 text-center text-gray-500">No hay actividad reciente</td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
 
                 {/* Invite Admin Section */}
                 <section className="bg-white/5 backdrop-blur-xl p-8 rounded-2xl border border-white/10 shadow-2xl relative overflow-hidden group">

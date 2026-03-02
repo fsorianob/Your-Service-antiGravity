@@ -8,7 +8,9 @@ Para escalar YourService a una plataforma SaaS nivel *High-End Premium*, el desa
 > **INSTRUCCIÓN OBLIGATORIA PARA CADA CHAT O NUEVO CHAT:**
 > Bajo NINGUNA circunstancia se debe eliminar, sobreescribir o ignorar el trabajo realizado por agentes o subagentes en chats anteriores (ej: modificaciones de posicionamiento del logo de la marca en la pantalla de inicio, las implementaciones de la API para los mapas en `Search.tsx`, estilos del navbar, etc). SIEMPRE verifica el historial y asegúrate de conservar los avances. Si un `git checkout` o un `deploy` sobreescribe el código, es tu deber restaurar la versión correcta integrándola nuevamente.
 
----## 1. 🏛️ Antigravity (Arquitecto Líder / Orquestador)
+---
+
+## 1. 🏛️ Antigravity (Arquitecto Líder / Orquestador)
 * **Rol:** Director del Proyecto y Desarrollador Frontend.
 * **Misión:** 
   * Escribir y refactorizar el código de React (`.tsx`).
