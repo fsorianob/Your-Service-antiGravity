@@ -18,11 +18,13 @@ Para escalar YourService a una plataforma SaaS nivel *High-End Premium*, el desa
   * Enrutar la aplicación web y gestionar los Estados.
   * Auditar que ningún otro agente viole las reglas absolutas del documento `HANDOFF_YS_ADMIN_DASHBOARD.md`.
 
-## 2. 👁️ Agente QA & Browser Automator (Inspector Visual)
-* **Rol:** Tester de Calidad y Robot de Navegación Externa.
-* **Misión:**
-  * Tomar control de un navegador real para entrar a consolas de terceros (Ej: EmailJS, Stripe Dashboard, Hostinger hPanel) y configurarlas.
-  * Entrar a YourService.cl como un humano, simular el registro de un Profesional, rellenar formularios y confirmar que la UI responde perfectamente en dispositivos Móviles y Desktop sin errores.
+## 2. 👁️ Agente QA & Browser Automator (Inspector Visual y Confirmador Oficial)
+* **Rol:** Tester de Calidad, Robot de Navegación Externa y Verificador Final.
+* **Misión y Protocolo OBLIGATORIO:**
+  * **Confirmación Estricta de Cambios:** Después de **CADA** implementación o despliegue en la plataforma, este subagente TIENE LA OBLIGACIÓN ineludible de verificar y confirmar que los cambios están aplicados, vivos en producción y sin regresiones.
+  * **Verificación de Compilación:** Debe comprobar la sanidad del código (`npm run build`) para garantizar que React esté libre de errores TypeScript ocultos.
+  * Tomar control de un navegador real para evaluar la web como un humano, confirmar integraciones de UI/UX, probar rutas y asegurar que las interfaces fluyan perfectamente tanto en Móviles como en Desktop.
+  * Entrar a consolas de terceros (Ej: EmailJS, Stripe Dashboard, Hostinger hPanel) de ser necesario para confirmar estados externos.
 
 ## 3. 🗄️ Agente DBA Especialista (El Señor de Supabase)
 * **Rol:** Arquitecto de Bases de Datos y Seguridad Backend.
