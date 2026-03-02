@@ -1,4 +1,4 @@
-import { Activity, Shield, Settings, Check, X, TrendingUp, DollarSign, LogOut, Loader2, UserPlus, Users, Search, AlertTriangle, KeyRound } from "lucide-react"
+import { Activity, Shield, Settings, Check, X, TrendingUp, DollarSign, LogOut, Loader2, UserPlus, Users, Search, AlertTriangle, KeyRound, Eye, EyeOff } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "@/contexts/AuthContext"
@@ -49,6 +49,7 @@ export default function AdminDashboard() {
     const [isPinModalOpen, setIsPinModalOpen] = useState(false)
     const [pinInput, setPinInput] = useState("")
     const [userToDelete, setUserToDelete] = useState<PendingPro | null>(null)
+    const [showPin, setShowPin] = useState(false)
 
     // Config State
     const [localSettings, setLocalSettings] = useState({ generalCommissionRate: 15, pricePerLead: 2000 })
@@ -492,11 +493,11 @@ export default function AdminDashboard() {
                             <div className="relative">
                                 <KeyRound className="absolute left-3 top-3 h-5 w-5 text-gray-500" />
                                 <input
-                                    type="password"
+                                    type={showPin ? "text" : "password"}
                                     placeholder="PIN de Seguridad Maestro"
                                     value={pinInput}
                                     onChange={(e) => setPinInput(e.target.value)}
-                                    className="w-full pl-10 pr-4 py-3 bg-black/50 border border-white/10 focus:border-red-500/50 rounded-xl text-center text-xl tracking-widest text-white outline-none transition-colors"
+                                    className="w-full pl-10 pr-12 py-3 bg-black/50 border border-white/10 focus:border-red-500/50 rounded-xl text-center text-xl tracking-widest text-white outline-none transition-colors"
                                     autoFocus
                                     onKeyDown={(e) => {
                                         if (e.key === 'Enter') confirmDeletion()
@@ -504,14 +505,22 @@ export default function AdminDashboard() {
                                 />
                             </div>
 
-                            <div className="flex gap-3 pt-2">
-                                <Button variant="outline" className="flex-1 border-white/10 hover:bg-white/5" onClick={() => setIsPinModalOpen(false)}>
-                                    Cancelar
-                                </Button>
-                                <Button variant="destructive" className="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold" onClick={confirmDeletion} disabled={isRejecting !== null || !pinInput}>
-                                    {isRejecting ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Ejecutar'}
-                                </Button>
-                            </div>
+                            <button
+                                type="button"
+                                onClick={() => setShowPin(!showPin)}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-white transition-colors"
+                            >
+                                {showPin ? <EyeOff size={18} /> : <Eye size={18} />}
+                            </button>
+                        </div>
+
+                        <div className="flex gap-3 pt-2">
+                            <Button variant="outline" className="flex-1 border-white/10 hover:bg-white/5" onClick={() => setIsPinModalOpen(false)}>
+                                Cancelar
+                            </Button>
+                            <Button variant="destructive" className="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold" onClick={confirmDeletion} disabled={isRejecting !== null || !pinInput}>
+                                {isRejecting ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Ejecutar'}
+                            </Button>
                         </div>
                     </div>
                 </div>

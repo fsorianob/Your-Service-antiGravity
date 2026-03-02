@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useNavigate } from "react-router-dom"
-import { ShieldCheck, Loader2 } from "lucide-react"
+import { ShieldCheck, Loader2, Eye, EyeOff } from "lucide-react"
 import { useState, useEffect } from "react"
 import { supabase } from "@/lib/supabase"
 
@@ -10,6 +10,8 @@ export default function ResetPasswordPage() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
     const [success, setSuccess] = useState(false)
+    const [showPassword, setShowPassword] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
     useEffect(() => {
         // En Supabase, al hacer click en el enlace de recuperación,
@@ -98,12 +100,44 @@ export default function ResetPasswordPage() {
                 <form className="space-y-4" onSubmit={handleUpdatePassword}>
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-white">Nueva Contraseña</label>
-                        <Input name="password" type="password" placeholder="••••••••" className="bg-background/50 border-white/10 text-white" required minLength={6} />
+                        <div className="relative">
+                            <Input
+                                name="password"
+                                type={showPassword ? "text" : "password"}
+                                placeholder="••••••••"
+                                className="bg-background/50 border-white/10 text-white pr-10"
+                                required
+                                minLength={6}
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-white transition-colors"
+                            >
+                                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                            </button>
+                        </div>
                     </div>
 
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-white">Confirmar Nueva Contraseña</label>
-                        <Input name="confirmPassword" type="password" placeholder="••••••••" className="bg-background/50 border-white/10 text-white" required minLength={6} />
+                        <div className="relative">
+                            <Input
+                                name="confirmPassword"
+                                type={showConfirmPassword ? "text" : "password"}
+                                placeholder="••••••••"
+                                className="bg-background/50 border-white/10 text-white pr-10"
+                                required
+                                minLength={6}
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-white transition-colors"
+                            >
+                                {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                            </button>
+                        </div>
                     </div>
 
                     <Button className="w-full font-bold mt-4" variant="gold" size="lg" disabled={loading}>

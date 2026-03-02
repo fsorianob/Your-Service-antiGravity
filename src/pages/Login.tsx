@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Link, useNavigate } from "react-router-dom"
-import { ShieldCheck, Loader2, ArrowLeft, ShieldAlert, User, Briefcase } from "lucide-react"
+import { ShieldCheck, Loader2, ArrowLeft, ShieldAlert, User, Briefcase, Eye, EyeOff } from "lucide-react"
 import { useState } from "react"
 import { supabase } from "@/lib/supabase"
 
@@ -11,6 +11,7 @@ export default function LoginPage() {
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
+    const [showPassword, setShowPassword] = useState(false)
     const [selectedRole, setSelectedRole] = useState<Role>(null)
 
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -115,7 +116,22 @@ export default function LoginPage() {
                                 <label className="text-sm font-medium text-white">Contraseña</label>
                                 <Link to="/forgot-password" className="text-xs text-primary hover:underline">¿Olvidaste tu contraseña?</Link>
                             </div>
-                            <Input name="password" type="password" placeholder="••••••••" className="bg-background/50 border-white/10 text-white" required />
+                            <div className="relative">
+                                <Input
+                                    name="password"
+                                    type={showPassword ? "text" : "password"}
+                                    placeholder="••••••••"
+                                    className="bg-background/50 border-white/10 text-white pr-10"
+                                    required
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-white transition-colors"
+                                >
+                                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                </button>
+                            </div>
                         </div>
 
                         <div className="pt-2 flex flex-col gap-3">

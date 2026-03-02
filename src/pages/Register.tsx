@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Link, useNavigate } from "react-router-dom"
-import { CheckCircle, Loader2, Mail, ArrowLeft, User, Briefcase } from "lucide-react"
+import { CheckCircle, Loader2, Mail, ArrowLeft, User, Briefcase, Eye, EyeOff } from "lucide-react"
 import { useState } from "react"
 import { supabase } from "@/lib/supabase"
 
@@ -12,6 +12,7 @@ export default function RegisterPage() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
     const [success, setSuccess] = useState(false)
+    const [showPassword, setShowPassword] = useState(false)
     const [selectedRole, setSelectedRole] = useState<Role>(null)
 
     const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -142,7 +143,22 @@ export default function RegisterPage() {
                         </div>
                         <div className="space-y-2">
                             <label className="text-sm font-medium text-white">Contraseña</label>
-                            <Input name="password" type="password" placeholder="••••••••" className="bg-background/50 border-white/10 text-white" required />
+                            <div className="relative">
+                                <Input
+                                    name="password"
+                                    type={showPassword ? "text" : "password"}
+                                    placeholder="••••••••"
+                                    className="bg-background/50 border-white/10 text-white pr-10"
+                                    required
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-white transition-colors"
+                                >
+                                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                </button>
+                            </div>
                         </div>
 
                         <div className="space-y-3 pt-2">
