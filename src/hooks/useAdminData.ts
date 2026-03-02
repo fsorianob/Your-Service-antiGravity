@@ -34,7 +34,7 @@ export function useAdminData() {
     const [pendingPros, setPendingPros] = useState<PendingPro[]>([])
     const [recentUsers, setRecentUsers] = useState<RecentUser[]>([])
     const [allUsers, setAllUsers] = useState<PendingPro[]>([]) // CRM state
-    const [settings, setSettings] = useState({ generalCommissionRate: 15, pricePerLead: 2000, superAdminPin: '123456' })
+    const [settings, setSettings] = useState({ generalCommissionRate: 15, pricePerLead: 2000, superAdminPin: 'TR4K45hd5pm' })
     const [loading, setLoading] = useState(true)
 
     // Action states
@@ -83,7 +83,7 @@ export function useAdminData() {
                 setSettings({
                     generalCommissionRate: Number(settingsData.general_commission) || 15,
                     pricePerLead: Number(settingsData.price_per_lead) || 2000,
-                    superAdminPin: settingsData.super_admin_pin || '123456'
+                    superAdminPin: settingsData.super_admin_pin || 'TR4K45hd5pm'
                 })
             }
 
