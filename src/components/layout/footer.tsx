@@ -8,8 +8,8 @@ export function Footer() {
                     <Link to="/" className="flex items-center gap-2 mb-4">
                         <img src="/logoYS_transparent.png" alt="YourService Logo" className="h-10 w-auto object-contain grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
                     </Link>
-                    <p className="text-sm text-muted-foreground">
-                        Encuentra al profesional experto para tu hogar en Santiago. Calidad y confianza garantizada.
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                        ¿Necesitas algo para tu imagen personal? ¿Algo para tu hogar? ¿Alguna solución para algo en particular? Aquí lo encuentras. Solo escríbelo en la barra de búsqueda ¡Lo que sea! Estamos completamente a tu servicio.
                     </p>
                 </div>
                 <div className="flex flex-col gap-2">
