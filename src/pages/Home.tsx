@@ -58,8 +58,8 @@ export default function Home() {
                         <div className="w-full max-w-sm md:max-w-md lg:max-w-xl mb-4 -mt-6 md:-mt-12 animate-in fade-in zoom-in duration-700">
                             <img src="/logoYS_transparent.png" alt="YourService Logo" className="w-full h-auto object-contain drop-shadow-2xl" />
                         </div>
-                        <h1 className="text-2xl md:text-3xl lg:text-4xl font-normal tracking-wide text-gray-300 leading-snug drop-shadow-lg mx-auto max-w-4xl text-center space-y-2">
-                            <span className="block">
+                        <h1 className="text-xl md:text-2xl lg:text-3xl font-normal tracking-wide text-gray-300 leading-[1.6] drop-shadow-lg mx-auto w-full max-w-none text-center space-y-2">
+                            <span className="block whitespace-nowrap">
                                 ¿Necesitas un <strong className="text-primary font-bold">Servicio</strong> para <span className="italic text-white">cambiar o solucionar</span> algo en tu <span className="italic text-white">hogar</span>?
                             </span>
                             <span className="block">
@@ -71,13 +71,13 @@ export default function Home() {
                             <span className="block">
                                 ¿Algo que <span className="italic text-white">no sabes dónde encontrar</span> quién preste ese <strong className="text-primary font-bold">Servicio</strong>?
                             </span>
-                            <span className="block mt-4 text-3xl md:text-4xl">
+                            <span className="block mt-4">
                                 <strong className="text-primary font-bold">¡Aquí lo encuentras!</strong>
                             </span>
                         </h1>
-                        <p className="text-xl md:text-2xl text-gray-300 drop-shadow-md pb-4 max-w-2xl mx-auto space-y-1">
-                            <span className="block">Solo escríbelo en la búsqueda</span>
-                            <span className="block text-2xl md:text-3xl">
+                        <p className="text-xl md:text-2xl lg:text-3xl text-gray-300 drop-shadow-md pb-4 w-full max-w-none mx-auto space-y-2 text-center tracking-wide leading-[1.6]">
+                            <span className="block mt-4">Solo escríbelo en la búsqueda</span>
+                            <span className="block">
                                 <span className="italic text-white">¡Lo que sea!</span> <strong className="text-primary font-bold">Aquí lo encontrarás.</strong>
                             </span>
                             <span className="block mt-4">
