@@ -167,11 +167,11 @@ export default function SearchPage() {
                     </p>
 
                     {/* Autocomplete Location Search */}
-                    <div className="mb-4">
+                    <div className="mb-4 relative">
                         {isLoaded ? (
-                            <Autocomplete onLoad={onLoadAutocomplete} onPlaceChanged={onPlaceChanged}>
-                                <div className="relative">
-                                    <MapPin className="absolute left-3 top-2.5 h-4 w-4 text-primary" />
+                            <>
+                                <MapPin className="absolute left-3 top-2.5 h-4 w-4 text-primary z-10 pointer-events-none" />
+                                <Autocomplete onLoad={onLoadAutocomplete} onPlaceChanged={onPlaceChanged}>
                                     <input
                                         type="text"
                                         placeholder="¿En qué dirección necesitas el servicio?"
@@ -182,18 +182,18 @@ export default function SearchPage() {
                                             }
                                         }}
                                     />
-                                </div>
-                            </Autocomplete>
+                                </Autocomplete>
+                            </>
                         ) : (
-                            <div className="relative opacity-50">
-                                <MapPin className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                            <>
+                                <MapPin className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground z-10 pointer-events-none" />
                                 <input
                                     type="text"
                                     placeholder="Cargando mapas..."
                                     disabled
                                     className="w-full pl-9 pr-4 py-2 bg-[#141414] border border-white/10 rounded-lg text-sm text-muted-foreground"
                                 />
-                            </div>
+                            </>
                         )}
                     </div>
 
