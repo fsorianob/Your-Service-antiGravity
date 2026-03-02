@@ -7,7 +7,9 @@ export interface PendingPro {
     id: string
     full_name: string
     email: string
-    category: string
+    category?: string
+    role?: string
+    created_at?: string
 }
 
 export interface AdminMetrics {
@@ -31,7 +33,8 @@ export function useAdminData() {
     })
     const [pendingPros, setPendingPros] = useState<PendingPro[]>([])
     const [recentUsers, setRecentUsers] = useState<RecentUser[]>([])
-    const [settings, setSettings] = useState({ generalCommissionRate: 15, pricePerLead: 2000 })
+    const [allUsers, setAllUsers] = useState<PendingPro[]>([]) // CRM state
+    const [settings, setSettings] = useState({ generalCommissionRate: 15, pricePerLead: 2000, superAdminPin: '123456' })
     const [loading, setLoading] = useState(true)
 
     // Action states
@@ -59,6 +62,11 @@ export function useAdminData() {
                 .order('created_at', { ascending: false })
                 .limit(5)
 
+            // Fetch All Users for CRM
+            const { data: allUsersData } = await supabase.from('profiles')
+                .select('id, full_name, email, role, created_at, category')
+                .order('created_at', { ascending: false })
+
             // Fetch Settings (Fallback to defaults if table missing/empty)
             const { data: settingsData, error: settingsError } = await supabase.from('platform_settings').select('*').limit(1).single()
 
@@ -69,11 +77,13 @@ export function useAdminData() {
             })
             setPendingPros(prosData || [])
             setRecentUsers(recentData || [])
+            setAllUsers(allUsersData || [])
 
             if (settingsData && !settingsError) {
                 setSettings({
                     generalCommissionRate: Number(settingsData.general_commission) || 15,
-                    pricePerLead: Number(settingsData.price_per_lead) || 2000
+                    pricePerLead: Number(settingsData.price_per_lead) || 2000,
+                    superAdminPin: settingsData.super_admin_pin || '123456'
                 })
             }
 
@@ -108,20 +118,21 @@ export function useAdminData() {
     const handleReject = async (id: string, name: string) => {
         setIsRejecting(id)
         try {
-            // Eliminar el perfil completamente de la tabla profiles
             const { error: profileError } = await supabase.from('profiles').delete().eq('id', id)
             if (profileError) throw profileError
 
-            // Note: Autenticación completa no se borra desde el front (requiere service_role), 
-            // pero quitar el profile inhabilitará su acceso efectivo al dashboard. 
-            toast.success(`Profesional ${name} rechazado y eliminado.`)
+            toast.success(`Usuario ${name} ha sido eliminado definitivamente.`)
             await fetchAdminData() // Refresh list
         } catch (error) {
-            console.error('Error rejecting pro:', error)
-            toast.error(`No se pudo rechazar a ${name}.`)
+            console.error('Error rejecting/deleting pro:', error)
+            toast.error(`No se pudo eliminar a ${name}.`)
         } finally {
             setIsRejecting(null)
         }
+    }
+
+    const verifySuperAdminPin = (inputPin: string) => {
+        return inputPin === settings.superAdminPin
     }
 
     const handleSaveSettings = async (newSettings: { generalCommissionRate: number, pricePerLead: number }) => {
@@ -132,8 +143,8 @@ export function useAdminData() {
                 price_per_lead: newSettings.pricePerLead
             })
             if (error) throw error
-            setSettings(newSettings)
-            toast.success("Configuración financiera actualizada.")
+            setSettings(prev => ({ ...prev, ...newSettings }))
+            toast.success("Configuración de ingresos guardada exitosamente.")
             return true
         } catch (error) {
             console.error('Error saving settings:', error)
@@ -200,6 +211,7 @@ export function useAdminData() {
         metrics,
         pendingPros,
         recentUsers,
+        allUsers,
         settings,
         loading,
         isApproving,
@@ -209,6 +221,7 @@ export function useAdminData() {
         handleReject,
         handleInviteAdmin,
         handleSaveSettings,
+        verifySuperAdminPin,
         refreshData: fetchAdminData
     }
 }
