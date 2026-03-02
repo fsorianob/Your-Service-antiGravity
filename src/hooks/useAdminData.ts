@@ -108,11 +108,13 @@ export function useAdminData() {
     const handleReject = async (id: string, name: string) => {
         setIsRejecting(id)
         try {
-            // Eliminar el perfil completamente (o podrías marcarlo como rechazado si hubiera una columna para eso)
-            const { error } = await supabase.from('profiles').delete().eq('id', id)
-            if (error) throw error
+            // Eliminar el perfil completamente de la tabla profiles
+            const { error: profileError } = await supabase.from('profiles').delete().eq('id', id)
+            if (profileError) throw profileError
 
-            toast.success(`Profesional ${name} rechazado y eliminado de la revisión.`)
+            // Note: Autenticación completa no se borra desde el front (requiere service_role), 
+            // pero quitar el profile inhabilitará su acceso efectivo al dashboard. 
+            toast.success(`Profesional ${name} rechazado y eliminado.`)
             await fetchAdminData() // Refresh list
         } catch (error) {
             console.error('Error rejecting pro:', error)
