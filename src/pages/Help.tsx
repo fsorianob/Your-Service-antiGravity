@@ -25,7 +25,7 @@ export default function HelpPage() {
                             <HelpCircle size={24} />
                         </div>
                         <h3 className="text-xl font-bold text-white mb-2">Preguntas Frecuentes</h3>
-                        <p className="text-muted-foreground text-sm">Respuestas a las dudas más comunes sobre YourService.</p>
+                        <p className="text-muted-foreground text-sm">Respuestas a las dudas más comunes sobre <span className="text-[#fbd38d] font-semibold">Your</span><span className="text-white font-semibold">Service</span>.</p>
                     </Link>
                     <Link to="/info/guides" className="bg-card border border-white/10 p-6 rounded-xl hover:border-primary/50 transition-colors group">
                         <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary mb-4 group-hover:bg-primary group-hover:text-black transition-colors">

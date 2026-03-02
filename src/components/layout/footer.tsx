@@ -34,7 +34,7 @@ export function Footer() {
                 </div>
             </div>
             <div className="container mx-auto px-4 md:px-6 mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between text-xs text-muted-foreground">
-                <p>&copy; 2026 YourService. Todos los derechos reservados.</p>
+                <p>&copy; 2026 <span className="text-[#fbd38d] font-semibold">Your</span><span className="text-white font-semibold">Service</span>. Todos los derechos reservados.</p>
                 <div className="flex gap-4 mt-4 md:mt-0">
                     <a href="https://instagram.com/yourservice" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Instagram</a>
                     <a href="https://twitter.com/yourservice" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Twitter</a>

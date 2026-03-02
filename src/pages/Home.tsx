@@ -35,17 +35,17 @@ export default function Home() {
     return (
         <div className="flex-1">
             {/* Hero Section */}
-            <section className="relative py-20 md:py-32 overflow-hidden">
+            <section className="relative pt-4 pb-20 md:pt-8 md:pb-32 overflow-hidden">
                 <div className="absolute inset-0 z-0 bg-black">
-                    {/* Deep gradient overlays for maximum contrast and readability */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/80 to-background z-10" />
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.9)_100%)] z-10 pointer-events-none" />
+                    {/* Lighter gradient overlays for better image visibility */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/60 to-background z-10" />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.5)_100%)] z-10 pointer-events-none" />
 
                     {/* Fading Background Cascade */}
                     {heroImages.map((src, index) => (
                         <div
                             key={src}
-                            className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out ${index === bgIndex ? "opacity-50 scale-105" : "opacity-0 scale-100"
+                            className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out ${index === bgIndex ? "opacity-[0.85] scale-105" : "opacity-0 scale-100"
                                 }`}
                             style={{ backgroundImage: `url('${src}')`, transitionProperty: 'opacity, transform', transitionDuration: '1.5s, 10s' }}
                         />
@@ -54,8 +54,8 @@ export default function Home() {
 
                 <div className="container relative z-20 mx-auto px-4 md:px-6">
                     <div className="flex flex-col items-center text-center space-y-8 max-w-4xl mx-auto">
-                        {/* Huge Central Logo */}
-                        <div className="w-full max-w-sm md:max-w-md lg:max-w-xl mb-4 animate-in fade-in zoom-in duration-700">
+                        {/* Huge Central Logo - Shifted Upwards */}
+                        <div className="w-full max-w-sm md:max-w-md lg:max-w-xl mb-4 -mt-6 md:-mt-12 animate-in fade-in zoom-in duration-700">
                             <img src="/logoYS_transparent.png" alt="YourService Logo" className="w-full h-auto object-contain drop-shadow-2xl" />
                         </div>
                         <h1 className="text-4xl md:text-6xl font-bold tracking-tighter text-white leading-[1.1] drop-shadow-lg">
@@ -173,7 +173,7 @@ export default function Home() {
             <section id="how-it-works" className="py-20 border-t border-white/5 bg-[#141414]">
                 <div className="container mx-auto px-4 md:px-6">
                     <div className="text-center max-w-2xl mx-auto mb-16">
-                        <h2 className="text-3xl font-bold tracking-tight text-white mb-4">¿Por qué elegir YourService?</h2>
+                        <h2 className="text-3xl font-bold tracking-tight text-white mb-4">¿Por qué elegir <span className="text-[#fbd38d]">Your</span><span className="text-white">Service</span>?</h2>
                         <p className="text-muted-foreground">Tu seguridad y satisfacción son nuestra prioridad número uno.</p>
                     </div>
 

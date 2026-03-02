@@ -41,7 +41,7 @@ export default function JoinProPage() {
             <section className="relative py-24 md:py-32 overflow-hidden bg-[#141414]">
                 <div className="absolute inset-0 z-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center" />
                 <div className="container relative z-10 mx-auto px-4 md:px-6 text-center max-w-3xl">
-                    <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">Haz crecer tu negocio con <span className="text-primary">YourService</span></h1>
+                    <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">Haz crecer tu negocio con <span className="text-[#fbd38d]">Your</span><span className="text-white">Service</span></h1>
                     <p className="text-xl text-muted-foreground mb-10">Conectamos a profesionales de calidad con clientes que buscan un servicio excepcional. Únete hoy.</p>
 
                     <Button size="lg" variant="gold" className="text-lg font-bold px-10 h-14" onClick={handleJoin} disabled={loading}>

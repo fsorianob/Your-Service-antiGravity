@@ -8,7 +8,6 @@ import LoginPage from "@/pages/Login"
 import RegisterPage from "@/pages/Register"
 import JoinProPage from "@/pages/JoinPro"
 import ProfessionalProfile from "@/pages/Profile"
-import BookPage from "@/pages/Book"
 import InfoPage from "@/pages/Info"
 import HelpPage from "@/pages/Help"
 import ClientDashboard from "@/pages/ClientDashboard"
@@ -46,7 +45,6 @@ function App() {
             <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route path="/join-pro" element={<JoinProPage />} />
             <Route path="/professionals/:id" element={<ProfessionalProfile />} />
-            <Route path="/book/:proId" element={<BookPage />} />
             <Route path="/info/:slug" element={<InfoPage />} />
             <Route path="/help" element={<HelpPage />} />
             <Route path="/dashboard/client" element={<ClientDashboard />} />

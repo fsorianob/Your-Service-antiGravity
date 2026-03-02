@@ -48,15 +48,17 @@ export function Navbar() {
                                     Hola, {user.user_metadata.full_name?.split(' ')[0]}
                                 </button>
                                 {/* User Dropdown */}
-                                <div className="absolute right-0 top-full mt-2 hidden min-w-[200px] flex-col rounded-xl border border-white/10 bg-[#141414] p-2 shadow-xl group-hover/user:flex z-50">
-                                    <Link to="/dashboard/client" className="rounded-lg px-3 py-2 text-sm text-gray-300 hover:bg-white/5 hover:text-primary">Mis Servicios (Cliente)</Link>
-                                    <Link to="/dashboard/pro" className="rounded-lg px-3 py-2 text-sm text-gray-300 hover:bg-white/5 hover:text-primary">Mi Panel (Profesional)</Link>
-                                    <div className="h-[1px] bg-white/10 my-1 mx-2" />
-                                    <Link to="/dashboard/admin" className="rounded-lg px-3 py-2 text-xs text-muted-foreground hover:bg-white/5 hover:text-primary">Administración</Link>
-                                    <div className="h-[1px] bg-white/10 my-1 mx-2" />
-                                    <button onClick={() => signOut()} className="w-full text-left rounded-lg px-3 py-2 text-sm text-red-400 hover:bg-white/5 hover:text-red-300">
-                                        Cerrar Sesión
-                                    </button>
+                                <div className="absolute right-0 top-full pt-2 hidden group-hover/user:flex z-50">
+                                    <div className="min-w-[200px] flex flex-col rounded-xl border border-white/10 bg-[#141414] p-2 shadow-xl">
+                                        <Link to="/dashboard/client" className="rounded-lg px-3 py-2 text-sm text-gray-300 hover:bg-white/5 hover:text-primary">Mis Servicios (Cliente)</Link>
+                                        <Link to="/dashboard/pro" className="rounded-lg px-3 py-2 text-sm text-gray-300 hover:bg-white/5 hover:text-primary">Mi Panel (Profesional)</Link>
+                                        <div className="h-[1px] bg-white/10 my-1 mx-2" />
+                                        <Link to="/dashboard/admin" className="rounded-lg px-3 py-2 text-xs text-muted-foreground hover:bg-white/5 hover:text-primary">Administración</Link>
+                                        <div className="h-[1px] bg-white/10 my-1 mx-2" />
+                                        <button onClick={() => signOut()} className="w-full text-left rounded-lg px-3 py-2 text-sm text-red-400 hover:bg-white/5 hover:text-red-300">
+                                            Cerrar Sesión
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </>

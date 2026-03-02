@@ -1,14 +1,24 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Star, MapPin, ShieldCheck, Clock, Loader2 } from "lucide-react"
+import { Star, MapPin, ShieldCheck, Clock, Loader2, Calendar, AlertCircle } from "lucide-react"
 // import { PROFESSIONALS_DATA } from "@/lib/data" // Removed mock data
-import { useParams, Link } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { ShareButton } from "@/components/profile-actions"
 import { useEffect, useState } from "react"
 import { supabase, type Profile } from "@/lib/supabase"
+import { useAuth } from "@/contexts/AuthContext"
 
 export default function ProfessionalProfile() {
     const { id } = useParams()
+    const navigate = useNavigate()
+    const { user } = useAuth()
+
+    // Modal states
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [isSubmitted, setIsSubmitted] = useState(false)
+    const [submitError, setSubmitError] = useState<string | null>(null)
+
     const [pro, setPro] = useState<Profile | null>(null)
     const [loading, setLoading] = useState(true)
 
@@ -55,6 +65,53 @@ export default function ProfessionalProfile() {
 
         fetchProDetails()
     }, [id])
+
+    const handleBookingClick = () => {
+        if (!user) {
+            navigate("/login")
+            return
+        }
+        setIsModalOpen(true)
+    }
+
+    const handleSubmitBooking = async (e: React.FormEvent) => {
+        e.preventDefault()
+        if (!user || !pro) return
+
+        setIsSubmitting(true)
+        setSubmitError(null)
+
+        const form = e.target as HTMLFormElement
+        const formData = new FormData(form)
+
+        const description = formData.get("description") as string
+        const date = formData.get("date") as string
+        const timeSlot = formData.get("timeSlot") as string
+        const address = formData.get("address") as string
+        const contactPhone = formData.get("contactPhone") as string
+
+        const { error: insertError } = await supabase
+            .from('requests')
+            .insert({
+                client_id: user.id,
+                professional_id: pro.id,
+                status: 'pending',
+                description,
+                date,
+                time_slot: timeSlot,
+                address,
+                contact_phone: contactPhone
+            })
+
+        if (insertError) {
+            console.error("Error submitting request:", insertError)
+            setSubmitError("Hubo un error al guardar. Inténtalo de nuevo.")
+            setIsSubmitting(false)
+        } else {
+            setIsSubmitted(true)
+            setIsSubmitting(false)
+        }
+    }
 
     if (loading) {
         return <div className="min-h-screen flex items-center justify-center text-white"><Loader2 className="animate-spin mr-2" /> Cargando perfil...</div>
@@ -163,14 +220,109 @@ export default function ProfessionalProfile() {
                     </div>
                     <div className="flex gap-2 w-full md:w-auto">
                         <ShareButton />
-                        <Link to={`/book/${pro.id}`} className="flex-[4] md:w-64">
-                            <Button variant="gold" size="lg" className="w-full font-bold text-black h-full">
-                                Solicitar Cotización
-                            </Button>
-                        </Link>
+                        <Button
+                            onClick={handleBookingClick}
+                            variant="gold"
+                            size="lg"
+                            className="flex-[4] md:w-64 w-full font-bold text-black h-full"
+                        >
+                            Solicitar Cotización
+                        </Button>
                     </div>
                 </div>
             </div>
+
+            {/* Modal de Reserva */}
+            {isModalOpen && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+                    <div className="bg-[#141414] border border-white/10 rounded-xl w-full max-w-lg max-h-[90vh] overflow-y-auto relative shadow-2xl">
+                        {/* Botón de cierre */}
+                        <button
+                            onClick={() => { setIsModalOpen(false); setIsSubmitted(false); setSubmitError(null); }}
+                            className="absolute top-4 right-4 text-muted-foreground hover:text-white"
+                        >
+                            ✕
+                        </button>
+
+                        <div className="p-6">
+                            <h2 className="text-2xl font-bold text-white mb-2">Solicitar Cotización</h2>
+                            <p className="text-sm text-muted-foreground mb-6">Contacta a {pro.full_name}</p>
+
+                            {isSubmitted ? (
+                                <div className="text-center py-8 space-y-4 animate-in zoom-in duration-500">
+                                    <div className="w-16 h-16 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                                        <ShieldCheck size={32} />
+                                    </div>
+                                    <h3 className="text-xl font-bold text-white">¡Solicitud Enviada!</h3>
+                                    <p className="text-muted-foreground">Tu solicitud ha sido enviada con éxito. El profesional te contactará pronto.</p>
+                                    <Button
+                                        variant="gold"
+                                        className="mt-6 w-full text-black font-bold h-12"
+                                        onClick={() => { setIsModalOpen(false); setIsSubmitted(false); }}
+                                    >
+                                        Cerrar
+                                    </Button>
+                                </div>
+                            ) : (
+                                <form onSubmit={handleSubmitBooking} className="space-y-5">
+                                    {submitError && (
+                                        <div className="bg-red-500/10 text-red-500 p-3 rounded-lg flex items-center gap-2 text-sm">
+                                            <AlertCircle size={16} /> {submitError}
+                                        </div>
+                                    )}
+
+                                    <div className="space-y-3">
+                                        <label className="text-sm font-semibold text-white">1. ¿Qué necesitas?</label>
+                                        <textarea
+                                            name="description"
+                                            className="w-full h-24 bg-background border border-white/10 rounded-lg p-3 text-white placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                                            placeholder="Describe tu problema o proyecto en detalle..."
+                                            required
+                                        />
+                                    </div>
+
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div className="space-y-2">
+                                            <label className="text-sm font-semibold text-white">Fecha sugerida</label>
+                                            <div className="relative">
+                                                <Calendar className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                                                <input name="date" type="date" className="w-full h-10 pl-9 rounded-md bg-background border border-white/10 text-white focus:outline-none focus:ring-1 focus:ring-primary" required />
+                                            </div>
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label className="text-sm font-semibold text-white">Horario</label>
+                                            <div className="relative">
+                                                <Clock className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                                                <select name="timeSlot" className="w-full h-10 pl-9 rounded-md bg-background border border-white/10 text-white focus:outline-none focus:ring-1 focus:ring-primary" defaultValue="Tarde (12pm - 5pm)">
+                                                    <option value="Mañana (8am - 12pm)">Mañana (8am - 12pm)</option>
+                                                    <option value="Tarde (12pm - 5pm)">Tarde (12pm - 5pm)</option>
+                                                    <option value="Noche (5pm - 8pm)">Noche (5pm - 8pm)</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="space-y-3 pt-2">
+                                        <label className="text-sm font-semibold text-white">2. Tus datos de contacto</label>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <input name="contactName" defaultValue={user?.user_metadata?.full_name || ''} placeholder="Tu nombre" className="w-full h-10 px-3 rounded-md bg-background border border-white/10 text-white focus:outline-none focus:ring-1 focus:ring-primary" required />
+                                            <input name="contactPhone" type="tel" placeholder="+56 9 1234 5678" className="w-full h-10 px-3 rounded-md bg-background border border-white/10 text-white focus:outline-none focus:ring-1 focus:ring-primary" required />
+                                        </div>
+                                        <div className="relative">
+                                            <MapPin className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                                            <input name="address" placeholder="Dirección para la visita" className="w-full h-10 pl-9 rounded-md bg-background border border-white/10 text-white focus:outline-none focus:ring-1 focus:ring-primary" required />
+                                        </div>
+                                    </div>
+
+                                    <Button type="submit" variant="gold" className="w-full h-12 text-lg font-bold text-black mt-2" disabled={isSubmitting}>
+                                        {isSubmitting ? <Loader2 className="animate-spin mr-2" /> : "Confirmar Solicitud"}
+                                    </Button>
+                                </form>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

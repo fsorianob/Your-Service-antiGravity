@@ -5,7 +5,7 @@ const PAGES_DATA: Record<string, { title: string; content: React.ReactNode }> = 
         title: "Sobre Nosotros",
         content: (
             <>
-                <p className="mb-4">YourService nace en Santiago con una misión simple: dignificar el trabajo de oficios y brindar seguridad a los hogares chilenos.</p>
+                <p className="mb-4"><span className="text-[#fbd38d] font-semibold">Your</span><span className="text-white font-semibold">Service</span> nace en Santiago con una misión simple: dignificar el trabajo de oficios y brindar seguridad a los hogares chilenos.</p>
                 <p className="mb-4">Somos una plataforma que conecta a los mejores profesionales verificar con clientes exigentes que buscan calidad y rapidez.</p>
                 <p>Desde 2026, hemos ayudado a más de 10.000 hogares a encontrar soluciones para gasfitería, electricidad, limpieza y más.</p>
             </>
@@ -15,9 +15,9 @@ const PAGES_DATA: Record<string, { title: string; content: React.ReactNode }> = 
         title: "Términos y Condiciones",
         content: (
             <>
-                <p className="mb-4">Bienvenido a YourService. Al usar nuestra plataforma, aceptas estos términos.</p>
+                <p className="mb-4">Bienvenido a <span className="text-[#fbd38d] font-semibold">Your</span><span className="text-white font-semibold">Service</span>. Al usar nuestra plataforma, aceptas estos términos.</p>
                 <h3 className="text-lg font-bold text-white mt-6 mb-2">1. Uso del Servicio</h3>
-                <p className="mb-4">YourService actúa como intermediario. No somos empleadores directos de los profesionales.</p>
+                <p className="mb-4"><span className="text-[#fbd38d] font-semibold">Your</span><span className="text-white font-semibold">Service</span> actúa como intermediario. No somos empleadores directos de los profesionales.</p>
                 <h3 className="text-lg font-bold text-white mt-6 mb-2">2. Pagos</h3>
                 <p className="mb-4">Los pagos se procesan de forma segura a través de nuestros partners financieros.</p>
             </>

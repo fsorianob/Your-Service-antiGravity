@@ -3,8 +3,9 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 // import { PROFESSIONALS_DATA } from "@/lib/data" // Removed mock data
 import { Link, useSearchParams, useNavigate } from "react-router-dom"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo, useCallback } from "react"
 import { supabase, type Profile } from "@/lib/supabase"
+import { GoogleMap, useJsApiLoader, Marker, Autocomplete } from "@react-google-maps/api"
 
 export default function SearchPage() {
     const [searchParams] = useSearchParams()
@@ -19,6 +20,74 @@ export default function SearchPage() {
     const [minRating, setMinRating] = useState(0)
     const [availabilityOnly, setAvailabilityOnly] = useState(false)
     const [sortBy, setSortBy] = useState("recommended")
+
+    // Google Maps Config
+    const libraries = useMemo(() => ['places'], []);
+    const { isLoaded, loadError } = useJsApiLoader({
+        id: 'google-map-script',
+        googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "",
+        libraries: libraries as any
+    })
+
+    const mapContainerStyle = {
+        width: '100%',
+        height: '100%'
+    };
+
+    // Default to Santiago, Chile
+    const defaultCenter = {
+        lat: -33.4489,
+        lng: -70.6693
+    };
+
+    const [, setMap] = useState<google.maps.Map | null>(null)
+    const [mapCenter, setMapCenter] = useState(defaultCenter)
+    const [autocomplete, setAutocomplete] = useState<google.maps.places.Autocomplete | null>(null)
+
+    const onLoadMap = useCallback(function callback(map: google.maps.Map) {
+        setMap(map)
+    }, [])
+
+    const onUnmountMap = useCallback(function callback() {
+        setMap(null)
+    }, [])
+
+    const onLoadAutocomplete = useCallback((autocompleteInstance: google.maps.places.Autocomplete) => {
+        setAutocomplete(autocompleteInstance)
+    }, [])
+
+    const onPlaceChanged = () => {
+        if (autocomplete) {
+            const place = autocomplete.getPlace()
+            if (place.geometry?.location) {
+                setMapCenter({
+                    lat: place.geometry.location.lat(),
+                    lng: place.geometry.location.lng()
+                })
+            }
+        }
+    }
+
+    // Simulation of coordinates based on specific cities (as real geocoding costs $)
+    const getCoordinatesFromLocation = (location: string | undefined) => {
+        if (!location) return null;
+        const loc = location.toLowerCase();
+        // Spread a little bit around Santiago
+        const randomLatOffset = (Math.random() - 0.5) * 0.1;
+        const randomLngOffset = (Math.random() - 0.5) * 0.1;
+
+        if (loc.includes("santiago") || loc.includes("vitacura") || loc.includes("las condes")) {
+            return { lat: -33.4489 + randomLatOffset, lng: -70.6693 + randomLngOffset };
+        }
+        if (loc.includes("valparaíso") || loc.includes("viña")) {
+            return { lat: -33.0456 + randomLatOffset, lng: -71.6197 + randomLngOffset };
+        }
+        if (loc.includes("concepción")) {
+            return { lat: -36.8201 + randomLatOffset, lng: -73.0444 + randomLngOffset };
+        }
+        // Fallback random within Chile
+        return { lat: -33.4489 + randomLatOffset, lng: -70.6693 + randomLngOffset };
+    }
 
     useEffect(() => {
         const fetchProfessionals = async () => {
@@ -96,6 +165,38 @@ export default function SearchPage() {
                     <p className="text-sm text-muted-foreground mb-4 md:mb-0 md:hidden">
                         {loading ? "Buscando..." : `${filteredList.length} profesionales encontrados`}
                     </p>
+
+                    {/* Autocomplete Location Search */}
+                    <div className="mb-4">
+                        {isLoaded ? (
+                            <Autocomplete onLoad={onLoadAutocomplete} onPlaceChanged={onPlaceChanged}>
+                                <div className="relative">
+                                    <MapPin className="absolute left-3 top-2.5 h-4 w-4 text-primary" />
+                                    <input
+                                        type="text"
+                                        placeholder="¿En qué dirección necesitas el servicio?"
+                                        className="w-full pl-9 pr-4 py-2 bg-[#141414] border border-white/10 rounded-lg text-sm text-white focus:outline-none focus:ring-1 focus:ring-primary shadow-sm"
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter') {
+                                                e.preventDefault();
+                                            }
+                                        }}
+                                    />
+                                </div>
+                            </Autocomplete>
+                        ) : (
+                            <div className="relative opacity-50">
+                                <MapPin className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                                <input
+                                    type="text"
+                                    placeholder="Cargando mapas..."
+                                    disabled
+                                    className="w-full pl-9 pr-4 py-2 bg-[#141414] border border-white/10 rounded-lg text-sm text-muted-foreground"
+                                />
+                            </div>
+                        )}
+                    </div>
+
                     {/* Mobile Filter Scroll */}
                     <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-hide items-center">
                         <Button
@@ -232,13 +333,122 @@ export default function SearchPage() {
                 {/* Map Column (Hidden on Mobile, Sticky on Desktop) */}
                 <div className="hidden lg:block lg:col-span-1">
                     <div className="sticky top-24 rounded-xl border border-white/10 bg-card h-[calc(100vh-8rem)] overflow-hidden relative">
-                        {/* Mock Map */}
-                        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1774&auto=format&fit=crop')] bg-cover bg-center opacity-50 grayscale hover:grayscale-0 transition-all duration-500" />
-                        <div className="absolute inset-0 flex items-center justify-center p-6 text-center bg-black/40">
-                            <Button variant="secondary" className="shadow-lg font-bold">
-                                <Map className="mr-2 h-4 w-4" /> Ver en Mapa
-                            </Button>
-                        </div>
+                        {/* Real Google Map */}
+                        {!isLoaded && !loadError && (
+                            <div className="absolute inset-0 flex items-center justify-center bg-[#141414]">
+                                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                            </div>
+                        )}
+                        {loadError && (
+                            <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#141414] p-6 text-center">
+                                <Map className="h-12 w-12 text-red-500 mb-2 opacity-50" />
+                                <p className="text-sm font-bold text-red-400">Error al cargar el mapa.</p>
+                                <p className="text-xs text-muted-foreground mt-1">Verifica la VITE_GOOGLE_MAPS_API_KEY en tu archivo .env.</p>
+                            </div>
+                        )}
+                        {isLoaded && (
+                            <GoogleMap
+                                mapContainerStyle={mapContainerStyle}
+                                center={mapCenter}
+                                zoom={11}
+                                onLoad={onLoadMap}
+                                onUnmount={onUnmountMap}
+                                options={{
+                                    styles: [
+                                        { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
+                                        { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
+                                        { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
+                                        {
+                                            featureType: "administrative.locality",
+                                            elementType: "labels.text.fill",
+                                            stylers: [{ color: "#d59563" }],
+                                        },
+                                        {
+                                            featureType: "poi",
+                                            elementType: "labels.text.fill",
+                                            stylers: [{ color: "#d59563" }],
+                                        },
+                                        {
+                                            featureType: "poi.park",
+                                            elementType: "geometry",
+                                            stylers: [{ color: "#263c3f" }],
+                                        },
+                                        {
+                                            featureType: "poi.park",
+                                            elementType: "labels.text.fill",
+                                            stylers: [{ color: "#6b9a76" }],
+                                        },
+                                        {
+                                            featureType: "road",
+                                            elementType: "geometry",
+                                            stylers: [{ color: "#38414e" }],
+                                        },
+                                        {
+                                            featureType: "road",
+                                            elementType: "geometry.stroke",
+                                            stylers: [{ color: "#212a37" }],
+                                        },
+                                        {
+                                            featureType: "road",
+                                            elementType: "labels.text.fill",
+                                            stylers: [{ color: "#9ca5b3" }],
+                                        },
+                                        {
+                                            featureType: "road.highway",
+                                            elementType: "geometry",
+                                            stylers: [{ color: "#746855" }],
+                                        },
+                                        {
+                                            featureType: "road.highway",
+                                            elementType: "geometry.stroke",
+                                            stylers: [{ color: "#1f2835" }],
+                                        },
+                                        {
+                                            featureType: "road.highway",
+                                            elementType: "labels.text.fill",
+                                            stylers: [{ color: "#f3d19c" }],
+                                        },
+                                        {
+                                            featureType: "transit",
+                                            elementType: "geometry",
+                                            stylers: [{ color: "#2f3948" }],
+                                        },
+                                        {
+                                            featureType: "transit.station",
+                                            elementType: "labels.text.fill",
+                                            stylers: [{ color: "#d59563" }],
+                                        },
+                                        {
+                                            featureType: "water",
+                                            elementType: "geometry",
+                                            stylers: [{ color: "#17263c" }],
+                                        },
+                                        {
+                                            featureType: "water",
+                                            elementType: "labels.text.fill",
+                                            stylers: [{ color: "#515c6d" }],
+                                        },
+                                        {
+                                            featureType: "water",
+                                            elementType: "labels.text.stroke",
+                                            stylers: [{ color: "#17263c" }],
+                                        },
+                                    ]
+                                }}
+                            >
+                                {filteredList.map((pro) => {
+                                    const coords = getCoordinatesFromLocation(pro.location);
+                                    if (!coords) return null;
+                                    return (
+                                        <Marker
+                                            key={pro.id}
+                                            position={coords}
+                                            title={pro.full_name || pro.email}
+                                        />
+                                    );
+                                })}
+                            </GoogleMap>
+                        )}
                     </div>
                 </div>
             </div>
