@@ -83,8 +83,8 @@ export default function LoginPage() {
                                 <Briefcase className="text-gray-300 group-hover:text-primary transition-colors" size={24} />
                             </div>
                             <div className="text-left">
-                                <span className="block text-white font-bold text-lg group-hover:text-primary transition-colors">Soy Negocio</span>
-                                <span className="block text-sm text-muted-foreground group-hover:text-gray-300">Ingresar al perfil de mis Negocios.</span>
+                                <span className="block text-white font-bold text-lg group-hover:text-primary transition-colors">Soy Especialista</span>
+                                <span className="block text-sm text-muted-foreground group-hover:text-gray-300">Ingresar a mi perfil de Especialista.</span>
                             </div>
                         </Button>
 

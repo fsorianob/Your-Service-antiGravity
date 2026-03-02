@@ -93,7 +93,7 @@ export default function Home() {
                         <div className="mt-12 p-6 bg-primary/5 border border-primary/20 rounded-2xl max-w-2xl mx-auto backdrop-blur-sm shadow-xl">
                             <h3 className="text-xl font-bold text-white mb-2">¿No ves tu rubro aquí? No importa.</h3>
                             <p className="text-muted-foreground text-sm md:text-base mb-4 leading-relaxed">
-                                Desde jardinería hasta asesoría legal, robótica o clases de guitarra. Si ofreces un trabajo excepcional, <strong className="text-white">Your Service</strong> es el escenario diseñado para impulsar tu negocio.
+                                Desde jardinería hasta asesoría legal, robótica o clases de guitarra. Si ofreces un trabajo excepcional, <strong className="text-white">Your Service</strong> es el escenario diseñado para impulsar tus servicios como Especialista.
                             </p>
                             <Button asChild variant="outline" className="border-primary/50 text-white hover:bg-primary/20">
                                 <Link to="/join-pro">Suma tu servicio hoy <ArrowRight className="ml-2 h-4 w-4" /></Link>

@@ -118,7 +118,7 @@ export default function RegisterPage() {
                                 <Briefcase className="text-gray-300 group-hover:text-primary transition-colors" size={24} />
                             </div>
                             <div className="text-left">
-                                <span className="block text-white font-bold text-lg group-hover:text-primary transition-colors">Quiero ser Negocio</span>
+                                <span className="block text-white font-bold text-lg group-hover:text-primary transition-colors">Quiero ser Especialista</span>
                                 <span className="block text-sm text-muted-foreground group-hover:text-gray-300">Crear perfil para publicar mis Servicios.</span>
                             </div>
                         </Button>

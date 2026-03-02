@@ -47,7 +47,7 @@ export default function ProDashboard() {
                             <div className="flex items-center gap-2 group cursor-default">
                                 <span className="font-bold text-lg tracking-tight">
                                     <span className="text-primary group-hover:text-white transition-colors duration-300">Soy</span>
-                                    <span className="text-white group-hover:text-primary transition-colors duration-300">Negocio</span>
+                                    <span className="text-white group-hover:text-primary transition-colors duration-300">Especialista</span>
                                 </span>
                             </div>
                             <div className="h-10 w-10 shrink-0 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold border border-primary/30">
