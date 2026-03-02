@@ -121,8 +121,14 @@ export function useAdminData() {
             const { error: profileError } = await supabase.from('profiles').delete().eq('id', id)
             if (profileError) throw profileError
 
+            // Optimistic UI Update: remove from all local states instantly
+            setAllUsers(prev => prev.filter(user => user.id !== id))
+            setRecentUsers(prev => prev.filter(user => user.id !== id))
+            setPendingPros(prev => prev.filter(user => user.id !== id))
+
             toast.success(`Usuario ${name} ha sido eliminado definitivamente.`)
-            await fetchAdminData() // Refresh list
+            // Still call fetch to sync counts in the background
+            fetchAdminData()
         } catch (error) {
             console.error('Error rejecting/deleting pro:', error)
             toast.error(`No se pudo eliminar a ${name}.`)
