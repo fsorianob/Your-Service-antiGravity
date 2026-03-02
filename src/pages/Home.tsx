@@ -59,34 +59,19 @@ export default function Home() {
                             <img src="/logoYS_transparent.png" alt="YourService Logo" className="w-full h-auto object-contain drop-shadow-2xl" />
                         </div>
 
-                        <div className="w-full md:w-1/2 md:mr-auto bg-black/60 backdrop-blur-md border border-white/10 rounded-xl p-6 md:p-8 text-left shadow-2xl animate-in slide-in-from-left duration-700">
-                            <h1 className="text-sm md:text-[15px] font-normal text-gray-200 leading-relaxed tracking-wide space-y-2">
-                                <span className="block whitespace-nowrap">
-                                    ¿Necesitas un <strong className="text-primary font-bold">Servicio</strong> para <span className="italic text-white">cambiar o solucionar</span> algo en tu <span className="italic text-white">hogar</span>?
-                                </span>
-                                <span className="block">
-                                    ¿Un <strong className="text-primary font-bold">Servicio</strong> para tu <span className="italic text-white">imagen personal</span>?
-                                </span>
-                                <span className="block">
-                                    ¿<strong className="text-primary font-bold">Servicio</strong> de <span className="italic text-white">mudanzas</span>?
-                                </span>
-                                <span className="block">
-                                    ¿Algo que <span className="italic text-white">no sabes dónde encontrar</span> quién preste ese <strong className="text-primary font-bold">Servicio</strong>?
-                                </span>
-                                <span className="block mt-4 text-primary font-bold">
+                        <h1 className="text-2xl md:text-3xl lg:text-5xl font-light tracking-wide text-gray-200 leading-[1.6] drop-shadow-xl mx-auto w-full max-w-5xl text-center space-y-3 mt-4 animate-in slide-in-from-bottom duration-1000">
+                            <span className="block">
+                                ¿Buscas el <strong className="text-primary font-bold">Servicio</strong> de algún <span className="italic text-white">especialista</span> cerca de tu ubicación
+                            </span>
+                            <span className="block">
+                                para dar solución a alguna <span className="italic text-white">necesidad o requerimiento?</span>
+                            </span>
+                            <span className="block mt-6">
+                                <strong className="text-primary text-3xl md:text-5xl lg:text-7xl tracking-widest uppercase relative before:content-[''] before:absolute before:-bottom-2 before:left-1/2 before:-translate-x-1/2 before:w-24 before:h-1 before:bg-primary/50">
                                     ¡Aquí lo encuentras!
-                                </span>
-                            </h1>
-                            <p className="text-sm md:text-[15px] text-gray-300 space-y-2 mt-4 leading-relaxed tracking-wide">
-                                <span className="block">Solo escríbelo en la búsqueda</span>
-                                <span className="block">
-                                    <span className="italic text-white">¡Lo que sea!</span> <strong className="text-primary font-bold">Aquí lo encontrarás.</strong>
-                                </span>
-                                <span className="block mt-2">
-                                    Estamos <span className="italic text-white">completamente</span> a <strong className="text-white font-bold">Tu Servicio</strong>.
-                                </span>
-                            </p>
-                        </div>
+                                </strong>
+                            </span>
+                        </h1>
 
                         <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-4 w-full max-w-lg p-2 bg-card/60 backdrop-blur-md border border-white/10 rounded-xl shadow-2xl">
                             <div className="relative flex-1">
