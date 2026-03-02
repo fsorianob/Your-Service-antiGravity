@@ -58,15 +58,31 @@ export default function Home() {
                         <div className="w-full max-w-sm md:max-w-md lg:max-w-xl mb-4 -mt-6 md:-mt-12 animate-in fade-in zoom-in duration-700">
                             <img src="/logoYS_transparent.png" alt="YourService Logo" className="w-full h-auto object-contain drop-shadow-2xl" />
                         </div>
-                        <h1 className="text-3xl md:text-5xl lg:text-5xl font-bold tracking-tighter text-white leading-[1.2] drop-shadow-lg mx-auto max-w-[90%]">
-                            ¿Necesitas algo para tu <span className="text-primary italic">imagen personal</span>?<br className="hidden md:block" />
-                            ¿Algo para tu <span className="text-primary">hogar</span>?<br className="hidden md:block" />
-                            ¿Alguna solución para algo en particular?<br className="hidden md:block" />
-                            <span className="text-white mt-4 block">Aquí lo encuentras.</span>
+                        <h1 className="text-2xl md:text-3xl lg:text-4xl font-normal tracking-wide text-gray-300 leading-snug drop-shadow-lg mx-auto max-w-4xl text-center space-y-2">
+                            <span className="block">
+                                ¿Necesitas un <strong className="text-primary font-bold">Servicio</strong> para <span className="italic text-white">cambiar o solucionar</span> algo en tu <span className="italic text-white">hogar</span>?
+                            </span>
+                            <span className="block">
+                                ¿Un <strong className="text-primary font-bold">Servicio</strong> para tu <span className="italic text-white">imagen personal</span>?
+                            </span>
+                            <span className="block">
+                                ¿<strong className="text-primary font-bold">Servicio</strong> de <span className="italic text-white">mudanzas</span>?
+                            </span>
+                            <span className="block">
+                                ¿Algo que <span className="italic text-white">no sabes dónde encontrar</span> quién preste ese <strong className="text-primary font-bold">Servicio</strong>?
+                            </span>
+                            <span className="block mt-4 text-3xl md:text-4xl">
+                                <strong className="text-primary font-bold">¡Aquí lo encuentras!</strong>
+                            </span>
                         </h1>
-                        <p className="text-lg md:text-xl text-muted-foreground drop-shadow-md pb-2 max-w-2xl mx-auto">
-                            Solo escríbelo en la barra de búsqueda <strong className="text-white font-black text-xl tracking-wide uppercase px-2">¡Lo que sea!</strong><br />
-                            <span className="text-primary/90 font-medium">Estamos completamente a tu servicio.</span>
+                        <p className="text-xl md:text-2xl text-gray-300 drop-shadow-md pb-4 max-w-2xl mx-auto space-y-1">
+                            <span className="block">Solo escríbelo en la búsqueda</span>
+                            <span className="block text-2xl md:text-3xl">
+                                <span className="italic text-white">¡Lo que sea!</span> <strong className="text-primary font-bold">Aquí lo encontrarás.</strong>
+                            </span>
+                            <span className="block mt-4">
+                                Estamos <span className="italic text-white">completamente</span> a <strong className="text-white font-bold">Tu Servicio</strong>.
+                            </span>
                         </p>
 
                         <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-4 w-full max-w-lg p-2 bg-card/60 backdrop-blur-md border border-white/10 rounded-xl shadow-2xl">
