@@ -271,7 +271,7 @@ export default function Home() {
                         </div>
 
                         {/* Card 5: Reseñas (Col Span Full) */}
-                        <div className="col-span-1 md:col-span-full p-8 rounded-3xl bg-card/40 backdrop-blur border border-white/10 hover:border-primary/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col sm:flex-row items-start sm:items-center gap-6 group">
+                        <div className="col-span-1 md:col-span-full p-8 rounded-3xl bg-card/40 backdrop-blur border border-white/10 hover:border-primary/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col md:flex-row items-start md:items-center gap-8 group">
                             <div className="hidden sm:flex h-16 w-16 shrink-0 rounded-full bg-primary items-center justify-center text-black group-hover:scale-110 transition-transform">
                                 <Star size={32} />
                             </div>
@@ -285,6 +285,13 @@ export default function Home() {
                                 <p className="text-muted-foreground text-sm leading-relaxed max-w-[70ch]">
                                     Una vez que el cliente te elija, solo queda cuadrar los detalles. Al terminar, la plataforma hace fácil pedir una reseña. Esas estrellas serán un imán para futuros trabajos.
                                 </p>
+                            </div>
+                            <div className="w-full md:w-auto mt-2 md:mt-0 md:pl-6 flex justify-center shrink-0">
+                                <Link to="/join-pro">
+                                    <Button size="lg" className="w-full md:w-auto h-14 px-8 rounded-xl font-bold text-lg bg-primary hover:bg-primary/90 text-black shadow-[0_0_20px_rgba(251,211,141,0.3)] hover:shadow-[0_0_30px_rgba(251,211,141,0.5)] transition-all duration-300">
+                                        Registrar mi Especialidad <ArrowRight className="ml-2 h-5 w-5" />
+                                    </Button>
+                                </Link>
                             </div>
                         </div>
                     </div>
