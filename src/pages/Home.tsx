@@ -59,15 +59,15 @@ export default function Home() {
                             <img src="/logoYS_transparent.png" alt="YourService Logo" className="w-full h-auto object-contain drop-shadow-2xl" />
                         </div>
 
-                        <h1 className="text-2xl md:text-3xl lg:text-5xl font-light tracking-wide text-gray-200 leading-[1.6] drop-shadow-xl mx-auto w-full max-w-5xl text-center space-y-3 mt-4 animate-in slide-in-from-bottom duration-1000">
-                            <span className="block">
+                        <h1 className="text-[clamp(1.5rem,4vw+1rem,3.5rem)] font-light tracking-wide text-gray-200 leading-tight drop-shadow-xl mx-auto w-full max-w-[75ch] text-center flex flex-col items-center gap-6 mt-4 animate-in slide-in-from-bottom duration-1000">
+                            <span className="block w-full">
                                 ¿Buscas el <strong className="text-primary font-bold">Servicio</strong> de algún <span className="italic text-white">especialista</span> cerca de tu ubicación
                             </span>
-                            <span className="block">
+                            <span className="block w-full">
                                 para dar solución a alguna <span className="italic text-white">necesidad o requerimiento?</span>
                             </span>
-                            <span className="block mt-6">
-                                <strong className="text-primary text-3xl md:text-5xl lg:text-7xl tracking-widest uppercase relative before:content-[''] before:absolute before:-bottom-2 before:left-1/2 before:-translate-x-1/2 before:w-24 before:h-1 before:bg-primary/50">
+                            <span className="block mt-4">
+                                <strong className="text-[clamp(2rem,5vw+1rem,4.5rem)] text-primary tracking-widest uppercase relative before:content-[''] before:absolute before:-bottom-2 before:left-1/2 before:-translate-x-1/2 before:w-24 before:h-[2px] before:bg-primary/50">
                                     ¡Aquí lo encuentras!
                                 </strong>
                             </span>
