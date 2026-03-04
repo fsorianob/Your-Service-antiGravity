@@ -39,7 +39,8 @@ export default function JoinProPage() {
         <div className="flex-1 animate-in fade-in duration-500">
             {/* Hero */}
             <section className="relative py-24 md:py-32 overflow-hidden bg-[#141414]">
-                <div className="absolute inset-0 z-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center" />
+                <div className="absolute inset-0 z-0 opacity-30 bg-[url('/fondo-alternativo.png')] bg-cover bg-center bg-no-repeat" />
+                <div className="absolute inset-0 z-0 bg-gradient-to-b from-transparent via-[#141414]/50 to-[#141414]" />
 
                 <div className="container relative z-10 mx-auto px-4 md:px-6">
                     <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12">
