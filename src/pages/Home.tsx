@@ -231,7 +231,7 @@ export default function Home() {
                         </div>
 
                         {/* Card 3: Oportunidades (Col Span 2 on lg) */}
-                        <div className="col-span-1 md:col-span-2 lg:col-span-2 p-8 rounded-3xl bg-primary/5 backdrop-blur border border-primary/20 hover:border-primary/60 hover:-translate-y-1 transition-all duration-300 shadow-lg relative overflow-hidden group">
+                        <div className="col-span-1 md:col-span-2 lg:col-span-2 p-8 rounded-3xl bg-card/40 backdrop-blur border border-white/10 hover:border-primary/50 hover:-translate-y-1 transition-all duration-300 shadow-lg relative overflow-hidden group">
                             <div className="relative z-10">
                                 <div className="flex items-center gap-4 mb-4">
                                     <div className="h-10 w-10 shrink-0 rounded-xl bg-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-black group-hover:shadow-[0_0_15px_rgba(251,211,141,0.5)] transition-all duration-300">
@@ -241,7 +241,7 @@ export default function Home() {
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
                                     <div className="space-y-2">
-                                        <h4 className="font-semibold text-primary flex items-center gap-2"><Zap size={16} /> Match Instantáneo</h4>
+                                        <h4 className="font-semibold text-white flex items-center gap-2"><Zap size={16} /> Match Instantáneo</h4>
                                         <p className="text-xs text-muted-foreground leading-relaxed">Si un cliente pide justo lo que tú haces, en tu zona y horario, nuestro algoritmo los conecta al momento.</p>
                                     </div>
                                     <div className="space-y-2">
