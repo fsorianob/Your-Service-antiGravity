@@ -40,19 +40,45 @@ export default function JoinProPage() {
             {/* Hero */}
             <section className="relative py-24 md:py-32 overflow-hidden bg-[#141414]">
                 <div className="absolute inset-0 z-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center" />
-                <div className="container relative z-10 mx-auto px-4 md:px-6 text-center max-w-3xl">
-                    <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">Haz crecer tus oportunidades como Especialista con <span className="text-[#fbd38d]">Your</span><span className="text-white">Service</span></h1>
-                    <p className="text-xl text-muted-foreground mb-10">Conectamos a profesionales de calidad con clientes que buscan un servicio excepcional. Únete hoy.</p>
 
-                    <Button size="lg" variant="gold" className="text-lg font-bold px-10 h-14" onClick={handleJoin} disabled={loading}>
-                        {loading ? <Loader2 className="animate-spin mr-2" /> : "Empezar Ahora"}
-                    </Button>
+                <div className="container relative z-10 mx-auto px-4 md:px-6">
+                    <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12">
 
-                    {!user && (
-                        <p className="mt-4 text-sm text-muted-foreground">
-                            ¿Ya tienes cuenta? <Link to="/login" className="text-primary hover:underline">Inicia sesión</Link>
-                        </p>
-                    )}
+                        {/* Left GIF - VideoBarbero */}
+                        <div className="hidden lg:block w-64 lg:w-72 shrink-0 transform -rotate-2 hover:rotate-0 hover:-translate-y-2 transition-all duration-500">
+                            <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-[0_0_30px_rgba(251,211,141,0.15)] bg-[#1F1F1F]">
+                                <img src="/VideoBarberoGIF.gif" alt="Especialista Barbero" className="w-full h-auto object-cover opacity-90 hover:opacity-100 transition-opacity" />
+                            </div>
+                        </div>
+
+                        {/* Central Text */}
+                        <div className="text-center max-w-2xl flex-1">
+                            <h1 className="text-[clamp(2.5rem,5vw+1rem,3.75rem)] font-bold text-white mb-6 leading-tight tracking-tight">
+                                Haz crecer tus oportunidades como Especialista con <span className="text-[#fbd38d]">Your</span><span className="text-white">Service</span>
+                            </h1>
+                            <p className="text-lg md:text-xl text-muted-foreground mb-10 leading-relaxed max-w-[60ch] mx-auto">
+                                Conectamos a profesionales de calidad con clientes que buscan un servicio excepcional. Únete hoy.
+                            </p>
+
+                            <Button size="lg" variant="gold" className="text-lg font-bold px-10 h-14 shadow-[0_0_20px_rgba(251,211,141,0.3)] hover:shadow-[0_0_30px_rgba(251,211,141,0.5)] transition-all duration-300" onClick={handleJoin} disabled={loading}>
+                                {loading ? <Loader2 className="animate-spin mr-2" /> : "Empezar Ahora"}
+                            </Button>
+
+                            {!user && (
+                                <p className="mt-6 text-sm text-muted-foreground">
+                                    ¿Ya tienes cuenta? <Link to="/login" className="text-primary font-medium hover:underline">Inicia sesión</Link>
+                                </p>
+                            )}
+                        </div>
+
+                        {/* Right GIF - VideoFontanero */}
+                        <div className="hidden lg:block w-64 lg:w-72 shrink-0 transform rotate-2 hover:rotate-0 hover:-translate-y-2 transition-all duration-500">
+                            <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-[0_0_30px_rgba(251,211,141,0.15)] bg-[#1F1F1F]">
+                                <img src="/VideoFontaneroGIF.gif" alt="Especialista Fontanero" className="w-full h-auto object-cover opacity-90 hover:opacity-100 transition-opacity" />
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </section>
 
