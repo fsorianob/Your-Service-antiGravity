@@ -1,4 +1,4 @@
-import { Search, MapPin, ShieldCheck, Clock, ArrowRight, Star } from "lucide-react"
+import { Search, MapPin, ArrowRight, Star, UserPlus, Settings, Zap, Inbox, MessageSquare } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { CardContent } from "@/components/ui/card"
@@ -177,35 +177,115 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* Features / Trust Section */}
-            <section id="how-it-works" className="py-20 border-t border-white/5 bg-[#141414]">
-                <div className="container mx-auto px-4 md:px-6">
-                    <div className="text-center max-w-2xl mx-auto mb-16">
-                        <h2 className="text-3xl font-bold tracking-tight text-white mb-4">¿Por qué elegir <span className="text-[#fbd38d]">Your</span><span className="text-white">Service</span>?</h2>
-                        <p className="text-muted-foreground">Tu seguridad y satisfacción son nuestra prioridad número uno.</p>
+            {/* Professional How It Works - Bento Grid */}
+            <section id="how-it-works" className="py-24 border-t border-white/5 bg-background relative overflow-hidden">
+                {/* Optional background glow */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
+
+                <div className="container relative z-10 mx-auto px-4 md:px-6">
+                    <div className="text-center w-full max-w-5xl mx-auto mb-16 space-y-6">
+                        <h2 className="text-[clamp(1.25rem,2.5vw+0.5rem,2.5rem)] font-bold tracking-tight text-white leading-tight">
+                            <span className="block w-full">¿Ofreces un servicio o eres especialista?</span>
+                            <span className="block w-full text-primary font-extrabold mt-2">Aquí te ayudamos a impulsar tu negocio</span>
+                        </h2>
+                        <p className="text-[clamp(1rem,1.5vw+0.5rem,1.125rem)] text-muted-foreground leading-relaxed max-w-[70ch] mx-auto">
+                            Nuestra plataforma no es solo un directorio aburrido, sino tu nueva herramienta de trabajo. Está pensada para conectarte directo con clientes de tu zona que ya están buscando activamente lo que tú haces. <strong className="text-white">Aquí tú eres el jefe.</strong>
+                        </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div className="flex flex-col items-center text-center p-6 space-y-4">
-                            <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-2">
-                                <ShieldCheck size={28} />
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                        {/* Card 1: Perfil (Col Span 2 on md+) */}
+                        <div className="col-span-1 md:col-span-2 p-8 rounded-3xl bg-card/40 backdrop-blur border border-white/10 hover:border-primary/50 hover:-translate-y-1 transition-all duration-300 shadow-lg relative overflow-hidden group">
+                            <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+                                <UserPlus size={64} className="text-primary" />
                             </div>
-                            <h3 className="text-xl font-bold text-white">Profesionales Verificados</h3>
-                            <p className="text-sm text-muted-foreground">Revisamos antecedentes y certificaciones de cada experto.</p>
+                            <div className="relative z-10">
+                                <div className="flex items-center gap-4 mb-4">
+                                    <div className="h-10 w-10 shrink-0 rounded-xl bg-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-black group-hover:shadow-[0_0_15px_rgba(251,211,141,0.5)] transition-all duration-300">
+                                        <span className="font-bold text-xl">1</span>
+                                    </div>
+                                    <h3 className="text-[clamp(1.25rem,2vw+0.5rem,1.5rem)] font-bold text-white leading-tight">Arma un perfil que llame la atención</h3>
+                                </div>
+                                <p className="text-muted-foreground text-sm leading-relaxed max-w-[70ch]">
+                                    Completa tu perfil detallando tus habilidades, sube fotos de muy buena calidad de tus últimos trabajos y escribe una biografía donde se note tu toque personal. Deja preconfiguradas las respuestas (Q&A) para ahorrar tiempo al cliente.
+                                </p>
+                            </div>
                         </div>
-                        <div className="flex flex-col items-center text-center p-6 space-y-4">
-                            <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-2">
-                                <Star size={28} />
+
+                        {/* Card 2: Reglas (Col Span 1) */}
+                        <div className="col-span-1 p-8 rounded-3xl bg-card/40 backdrop-blur border border-white/10 hover:border-primary/50 hover:-translate-y-1 transition-all duration-300 shadow-lg relative overflow-hidden group">
+                            <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+                                <Settings size={64} className="text-primary" />
                             </div>
-                            <h3 className="text-xl font-bold text-white">Calidad Garantizada</h3>
-                            <p className="text-sm text-muted-foreground">Si no quedas satisfecho, trabajaremos hasta solucionarlo.</p>
+                            <div className="relative z-10">
+                                <div className="flex items-center gap-4 mb-4">
+                                    <div className="h-10 w-10 shrink-0 rounded-xl bg-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-black group-hover:shadow-[0_0_15px_rgba(251,211,141,0.5)] transition-all duration-300">
+                                        <span className="font-bold text-xl">2</span>
+                                    </div>
+                                    <h3 className="text-[clamp(1.25rem,2vw+0.5rem,1.5rem)] font-bold text-white leading-tight">Pon tus propias reglas</h3>
+                                </div>
+                                <p className="text-muted-foreground text-sm leading-relaxed max-w-[70ch]">
+                                    Tú tienes el control del volante. Ajusta tus preferencias de viaje, días, horarios y límite de presupuesto semanal. Así cuidas tu bolsillo.
+                                </p>
+                            </div>
                         </div>
-                        <div className="flex flex-col items-center text-center p-6 space-y-4">
-                            <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-2">
-                                <Clock size={28} />
+
+                        {/* Card 3: Oportunidades (Col Span 2 on lg) */}
+                        <div className="col-span-1 md:col-span-2 lg:col-span-2 p-8 rounded-3xl bg-primary/5 backdrop-blur border border-primary/20 hover:border-primary/60 hover:-translate-y-1 transition-all duration-300 shadow-lg relative overflow-hidden group">
+                            <div className="relative z-10">
+                                <div className="flex items-center gap-4 mb-4">
+                                    <div className="h-10 w-10 shrink-0 rounded-xl bg-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-black group-hover:shadow-[0_0_15px_rgba(251,211,141,0.5)] transition-all duration-300">
+                                        <span className="font-bold text-xl">3</span>
+                                    </div>
+                                    <h3 className="text-[clamp(1.25rem,2vw+0.5rem,1.5rem)] font-bold text-white leading-tight">Recibe oportunidades de dos maneras</h3>
+                                </div>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
+                                    <div className="space-y-2">
+                                        <h4 className="font-semibold text-primary flex items-center gap-2"><Zap size={16} /> Match Instantáneo</h4>
+                                        <p className="text-xs text-muted-foreground leading-relaxed">Si un cliente pide justo lo que tú haces, en tu zona y horario, nuestro algoritmo los conecta al momento.</p>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <h4 className="font-semibold text-white flex items-center gap-2"><Inbox size={16} /> Buzón de Oportunidades</h4>
+                                        <p className="text-xs text-muted-foreground leading-relaxed">Revisa nuestras solicitudes abiertas y decide si quieres invertir en enviarles una cotización.</p>
+                                    </div>
+                                </div>
                             </div>
-                            <h3 className="text-xl font-bold text-white">Respuesta Rápida</h3>
-                            <p className="text-sm text-muted-foreground">Cotizaciones en minutos y disponibilidad inmediata.</p>
+                        </div>
+
+                        {/* Card 4: Chat (Col Span 1) */}
+                        <div className="col-span-1 p-8 rounded-3xl bg-card/40 backdrop-blur border border-white/10 hover:border-primary/50 hover:-translate-y-1 transition-all duration-300 shadow-lg relative overflow-hidden group">
+                            <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+                                <MessageSquare size={64} className="text-primary" />
+                            </div>
+                            <div className="relative z-10">
+                                <div className="flex items-center gap-4 mb-4">
+                                    <div className="h-10 w-10 shrink-0 rounded-xl bg-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-black group-hover:shadow-[0_0_15px_rgba(251,211,141,0.5)] transition-all duration-300">
+                                        <span className="font-bold text-xl">4</span>
+                                    </div>
+                                    <h3 className="text-[clamp(1.25rem,2vw+0.5rem,1.5rem)] font-bold text-white leading-tight">Responde rápido</h3>
+                                </div>
+                                <p className="text-muted-foreground text-sm leading-relaxed max-w-[70ch]">
+                                    El que responde primero suele llevarse el proyecto. Usa nuestro chat integrado y plantillas guardadas para contestar al instante.
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Card 5: Reseñas (Col Span Full) */}
+                        <div className="col-span-1 md:col-span-full p-8 rounded-3xl bg-card/40 backdrop-blur border border-white/10 hover:border-primary/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col sm:flex-row items-start sm:items-center gap-6 group">
+                            <div className="hidden sm:flex h-16 w-16 shrink-0 rounded-full bg-primary items-center justify-center text-black group-hover:scale-110 transition-transform">
+                                <Star size={32} />
+                            </div>
+                            <div className="flex-1">
+                                <div className="flex items-center gap-4 mb-3">
+                                    <div className="h-10 w-10 shrink-0 rounded-xl bg-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-black group-hover:shadow-[0_0_15px_rgba(251,211,141,0.5)] transition-all duration-300">
+                                        <span className="font-bold text-xl">5</span>
+                                    </div>
+                                    <h3 className="text-[clamp(1.25rem,2vw+0.5rem,1.5rem)] font-bold text-white leading-tight">Haz tu magia, cobra y hazte de un buen nombre</h3>
+                                </div>
+                                <p className="text-muted-foreground text-sm leading-relaxed max-w-[70ch]">
+                                    Una vez que el cliente te elija, solo queda cuadrar los detalles. Al terminar, la plataforma hace fácil pedir una reseña. Esas estrellas serán un imán para futuros trabajos.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
