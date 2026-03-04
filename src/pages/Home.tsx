@@ -59,15 +59,15 @@ export default function Home() {
                             <img src="/logoYS_transparent.png" alt="YourService Logo" className="w-full h-auto object-contain drop-shadow-2xl" />
                         </div>
 
-                        <h1 className="text-[clamp(1.5rem,4vw+1rem,3.5rem)] font-light tracking-wide text-gray-200 leading-tight drop-shadow-xl mx-auto w-full max-w-[75ch] text-center flex flex-col items-center gap-6 mt-4 animate-in slide-in-from-bottom duration-1000">
+                        <h1 className="text-[clamp(0.875rem,1.5vw+0.5rem,1.5rem)] font-light tracking-wide text-gray-200 leading-tight drop-shadow-xl mx-auto w-full max-w-[75ch] text-center flex flex-col items-center gap-4 mt-4 animate-in slide-in-from-bottom duration-1000">
                             <span className="block w-full">
-                                ¿Buscas el <strong className="text-primary font-bold">Servicio</strong> de algún <span className="italic text-white">especialista</span> cerca de tu ubicación
+                                ¿Buscas el <strong className="text-primary font-bold">Servicio</strong> de algún <strong className="text-white font-bold italic">especialista</strong> cerca de tu ubicación
                             </span>
                             <span className="block w-full">
-                                para dar solución a alguna <span className="italic text-white">necesidad o requerimiento?</span>
+                                para dar solución a alguna <span className="italic text-primary font-medium">necesidad o requerimiento?</span>
                             </span>
                             <span className="block mt-4">
-                                <strong className="text-[clamp(2rem,5vw+1rem,4.5rem)] text-primary tracking-widest uppercase relative before:content-[''] before:absolute before:-bottom-2 before:left-1/2 before:-translate-x-1/2 before:w-24 before:h-[2px] before:bg-primary/50">
+                                <strong className="text-[clamp(1.125rem,2.5vw+0.5rem,2rem)] text-primary font-extrabold tracking-wide uppercase relative before:content-[''] before:absolute before:-bottom-2 before:left-1/2 before:-translate-x-1/2 before:w-16 before:h-[2px] before:bg-primary/50">
                                     ¡Aquí lo encuentras!
                                 </strong>
                             </span>
